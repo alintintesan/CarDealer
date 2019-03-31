@@ -1,6 +1,6 @@
 # CarDealer
 
-# Prerequisites
+### Prerequisites
 - [Microsoft Visual Studio 2017](https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=Community&rel=15)
 - [Microsoft SQL Server 2017](https://go.microsoft.com/fwlink/?linkid=853017)
 - [Microsoft SQL Server Management Studio 17](https://go.microsoft.com/fwlink/?linkid=2043154)
