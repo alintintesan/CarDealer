@@ -7,7 +7,7 @@
 - [Git](https://git-scm.com/download/win)
 - [SourceTree](https://product-downloads.atlassian.com/software/sourcetree/windows/ga/SourceTreeSetup-3.0.17.exe)
 
- # SourceTree Installation
+ ### SourceTree Installation
  - Click "BitBucket"
  - Browser should open and then you should be logged (create an account if you don't already have one)
  - At this point, Git should already be installed
@@ -21,7 +21,7 @@
  - Click "Clone"
  - The cloned project should apper in a new tab at the top of the page
  
- # Importing the database 
+ ### Importing the database 
 - Open Microsoft SQL Server Management Studio 17
 - Click "Connect"
 - Click "File" > "Open" > "File"
@@ -30,7 +30,7 @@
 - After the script opened in SQL Server Management Studio, click "Execute" or press F5
 - After the execution, the database should be found inside "Databases" tab
 
-# Task management
+### Task management
 - Before working on a new task, a new branch should be created, having the task's name
 - All the changes need to pe commited and pushed to this new branch
 - When the task is ready, a new pull request has to be opened 
