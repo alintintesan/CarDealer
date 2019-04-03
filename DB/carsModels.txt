@@ -1,0 +1,100 @@
+AUDI id1
+-A3 entry 30000 2019
+-A4 entry 40000 2019
+-A5 premium 50000 2018
+-A6 premium 60000 2019
+-A7 premium 70000 2019
+-A8 luxury 80000 2019
+-R8 luxury 120000 2018
+-S6 luxury 72000 2017
+-S7 luxury 80000 2019 
+-S8 luxury 100000 2019
+-e-Tron premium 75000 2019
+-Q7 premium 60000 2018
+-Q8 luxury 75000 2018
+
+BMW id2
+-3 series entry 40000 2017
+-5 series premium 60000 2018
+-6 series premium 85000 2017
+-7 series luxury 130000 2018
+-M3 luxury 80000 2016
+-M5 luxury 100000 2017
+-M6 luxury 120000 2016
+-X5 premium 65000 2017
+-X6 premium 80000 2016
+-i8 luxury 140000 2016
+
+Mercedes id3
+-A class entry 30000 2018
+-C class basic 40000 2017
+-E class basic 70000 2018
+-G class premium 120000 2018
+-GLE class premium 70000 2018
+-S class luxury 150000 2018
+-C class AMG luxury 120000 2018
+-E class AMG luxury 140000 2018
+-S class AMG luxury 160000 2018
+
+Volkswagen id4
+-Golf basic 20000 2018
+-Jetta basic 20000 2018
+-Passat premium 30000 2018
+-Touareg premium 40000 2018
+-Tiguan basic 25000 2018
+
+Ferrari id5
+-LaFerrari luxury 1 500 000 2018
+-F12 Berlinetta luxury 400000 2017
+-F50 GT luxury 1 500000 1998
+-FF luxury 180000 2015
+-458 Italia luxury 280000 2015
+-California T luxury 200000 2016
+
+Ford id6
+-Focus basic 18000 2017
+-Mustang premium 45000 2018
+-F150 Raptor premium 40000 2018
+-Fiesta basic 14000 2018
+-GT luxury 100000 2018
+
+Honda id7
+-Accord basic 25000 2018
+-Civic basic 20000 2018
+
+Jaguar id8
+-XF premium 50000 2018
+-XJ premium 75000 2018
+
+Land-Rover id9
+-Discovery basic 40000 2018
+-Range Rover luxury 90000 2018
+
+Nissan
+-Qashqai basic 25000 2017
+-GT-R 100000 2017
+
+Dacia
+-Logan basic 7500 2018
+-Sandero basic 7500 2018
+-Duster basic 13000 2018
+
+Tesla
+-Model S premium 80000 2018
+-Model X premium 90000 2018
+-Model 3 basic 35000 2018
+
+Toyota
+-Prius basic 20000 2018
+-Corolla basic 25000 2018
+
+Seat
+-Ibiza basic 10000 2017
+-Leon basic 20000 2018
+
+Porsche
+-Carrera GT luxury 900 000 2005
+-918 luxury 1 300 000 2015 
+-Panamera luxury 90000  2018
+-Cayenne luxury 75000 2018
+-911 luxury 100000 2018
