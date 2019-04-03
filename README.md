@@ -36,7 +36,7 @@
 - When the task is ready, a new pull request has to be opened 
 - All changes must be approved in a code review by the team lead and optionally another team member
 - Comments and requested changes must be addressed
-- After approval, the branch can be merged into master
+- After approval, the branch can be merged into master!
 
 ### Database Diagram
 ![](https://github.com/alintintesan/CarDealer/blob/master/DB/CarDealerDB.png)
