@@ -34,7 +34,7 @@
 - Before working on a new task, a new branch should be created, having the task's name
 - All the changes need to pe commited and pushed to this new branch
 - When the task is ready, a new pull request has to be opened 
-- All changes must be approved in a  code review by at least two team members (including the team lead)
+- All changes must be approved in a code review by the team lead and optionally another team member
 - Comments and requested changes must be addressed
 - After approval, the branch can be merged into master
 
