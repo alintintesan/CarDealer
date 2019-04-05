@@ -1,4 +1,5 @@
-﻿using CarDealer.Utils;
+﻿using CarDealer.Models;
+using CarDealer.Utils;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -19,16 +20,34 @@ namespace CarDealer
             try
             {
                 connection.Open();
-                string sql = @"select * from [Users]";
+                string sql = "select Models.id, Brands.brand, Models.brandId, Models.model, Models.basePrice from Models " +
+                    "inner join Brands on Models.brandId = Brands.id";
                 SqlCommand command = new SqlCommand(sql, connection);
                 SqlDataReader reader = command.ExecuteReader();
+
+                List<Model> models = new List<Model>();
+
                 while (reader.Read())
                 {
-                    MessageHelper.Print("{0} {1} {2} ", reader.GetValue(0), reader.GetValue(1), reader.GetValue(2));
+                    int modelId = (int)reader.GetValue(0);
+                    string brand = (string)reader.GetValue(1);
+                    int brandId = (int)reader.GetValue(2);
+                    string model = (string)reader.GetValue(3);
+                    float basePrice = (float)reader.GetValue(4);
+
+                    Brand brandObj = new Brand(brandId, brand);
+                    Model modelObj = new Model(modelId, brandObj, model, basePrice);
+
+                    models.Add(modelObj);
                 }
                 reader.Close();
                 command.Dispose();
                 connection.Close();
+
+                foreach(var model in models)
+                {
+                    MessageHelper.Print(model.ToString());
+                }
             }
             catch (Exception e)
             {
