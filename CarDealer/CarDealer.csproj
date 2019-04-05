@@ -43,8 +43,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DAO\ModelDAO.cs" />
     <Compile Include="Enums\EFuelType.cs" />
     <Compile Include="Enums\EOptionsLevel.cs" />
+    <Compile Include="Interfaces\IModelDAO.cs" />
     <Compile Include="Models\Brand.cs" />
     <Compile Include="Models\CarInventory.cs" />
     <Compile Include="Models\Client.cs" />
@@ -58,6 +60,7 @@
     <Compile Include="Models\Rental.cs" />
     <Compile Include="Models\Reports.cs" />
     <Compile Include="Models\ServiceIntervention.cs" />
+    <Compile Include="Models\TestDrive.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\DatabaseHelper.cs" />
@@ -66,5 +69,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
