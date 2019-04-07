@@ -8,6 +8,7 @@ namespace CarDealer.Enums
 {
     enum EOptionsLevel
     {
+        Basic,
         Entry,
         Premium,
         Luxury

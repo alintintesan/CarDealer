@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CarDealer.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,6 +18,7 @@ namespace CarDealer.Models
         private float initialPrice;
         private float finalPrice;
         private List<Option> options;
+        private EOptionsLevel optionsLevel;
 
         public int Id { get => id; set => id = value; }
         public Model Model { get => model; set => model = value; }
@@ -27,6 +29,7 @@ namespace CarDealer.Models
         public float InitialPrice { get => initialPrice; set => initialPrice = value; }
         public float FinalPrice { get => finalPrice; set => finalPrice = value; }
         private List<Option> Options { get => options; set => options = value; }
+        private EOptionsLevel OptionsLevel { get => optionsLevel; set => optionsLevel = value; }
 
         public CarInventory(
             int id,
@@ -35,9 +38,7 @@ namespace CarDealer.Models
             Engine engine,
             DateTime buildDate,
             int mileage,
-            float initialPrice,
-            float finalPrice,
-            List<Option> options
+            float initialPrice
             )
         {
             this.id = id;
@@ -47,15 +48,14 @@ namespace CarDealer.Models
             this.buildDate = buildDate;
             this.mileage = mileage;
             this.initialPrice = initialPrice;
-            this.finalPrice = finalPrice;
-            this.options = options;
+            this.optionsLevel = EOptionsLevel.Basic;
         }
 
         public override string ToString()
         {
             return $"{model}{Environment.NewLine}{color}{Environment.NewLine}{engine}{Environment.NewLine}" +
                 $"Build date: {buildDate} Mileage: {mileage}{Environment.NewLine}Initial price: {initialPrice} Final Price: {finalPrice}" +
-                $"{Environment.NewLine}Options: {Environment.NewLine}{getOptionsAsString()}";
+                $"{Environment.NewLine}Options level: {optionsLevel}{Environment.NewLine}Options: {Environment.NewLine}{getOptionsAsString()}";
         }
 
         private string getOptionsAsString()
