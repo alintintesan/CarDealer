@@ -43,10 +43,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CarManufacturing\CarInventory.cs" />
+    <Compile Include="CarManufacturing\CarDecorator.cs" />
+    <Compile Include="CarManufacturing\EntryDecorator.cs" />
+    <Compile Include="CarManufacturing\LuxuryDecorator.cs" />
+    <Compile Include="CarManufacturing\PremiumDecorator.cs" />
     <Compile Include="DAO\ModelDAO.cs" />
+    <Compile Include="DAO\OptionDAO.cs" />
     <Compile Include="Enums\EFuelType.cs" />
     <Compile Include="Enums\EOptionsLevel.cs" />
+    <Compile Include="Interfaces\IDecoratedCar.cs" />
     <Compile Include="Interfaces\IModelDAO.cs" />
+    <Compile Include="Interfaces\IOptionDAO.cs" />
     <Compile Include="Models\Brand.cs" />
     <Compile Include="Models\CarInventory.cs" />
     <Compile Include="Models\Client.cs" />
