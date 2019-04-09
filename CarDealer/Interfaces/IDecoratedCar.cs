@@ -18,6 +18,8 @@ namespace CarDealer.Interfaces
         int Mileage { get; set; }
         float InitialPrice { get; set; }
         float FinalPrice { get; set; }
+        EOptionsLevel OptionsLevel { get; set; }
+        List<Option> Options { get; set; }
 
         void SetOptionsLevel();
     }

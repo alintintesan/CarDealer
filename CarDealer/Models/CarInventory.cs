@@ -18,8 +18,8 @@ namespace CarDealer.Models
         public int Mileage { get; set; }
         public float InitialPrice { get; set; }
         public float FinalPrice { get; set; }
-        private List<Option> Options { get; set; }
-        private EOptionsLevel OptionsLevel { get; set; }
+        public List<Option> Options { get; set; }
+        public EOptionsLevel OptionsLevel { get; set; }
 
         public CarInventory(
             int id,

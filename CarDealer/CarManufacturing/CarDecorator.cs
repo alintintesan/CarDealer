@@ -21,6 +21,8 @@ namespace CarDealer.CarManufacturing
         public int Mileage { get => decoratedCar.Mileage; set => decoratedCar.Mileage = value; }
         public float InitialPrice { get => decoratedCar.InitialPrice; set => decoratedCar.InitialPrice = value; }
         public float FinalPrice { get => decoratedCar.FinalPrice; set => decoratedCar.FinalPrice = value; }
+        public EOptionsLevel OptionsLevel { get => decoratedCar.OptionsLevel; set => decoratedCar.OptionsLevel = value; }
+        public List<Option> Options { get => decoratedCar.Options; set => decoratedCar.Options = value; }
 
         public CarDecorator(IDecoratedCar decoCar)
         {

@@ -59,7 +59,6 @@
     <Compile Include="Interfaces\IClientDAO.cs" />
     <Compile Include="Interfaces\IEmployeeDAO.cs" />
     <Compile Include="Interfaces\IMainMenu.cs" />
-    <Compile Include="Interfaces\IModelDAO.cs" />
     <Compile Include="Menu\MainMenu.cs" />
     <Compile Include="Menu\MainMenuProxy.cs" />
     <Compile Include="Models\Brand.cs" />

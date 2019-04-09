@@ -29,7 +29,7 @@ namespace CarDealer.DAO
                 {
                     int optionId = (int)reader["id"];
                     string option = (string)reader["option"];
-                    float price = (int)reader["price"];
+                    float price = float.Parse(reader["price"].ToString());
                     string level = (string)reader["level"];
 
                     EOptionsLevel eLevel = EOptionsLevel.Basic;
@@ -73,7 +73,7 @@ namespace CarDealer.DAO
                 {
                     int optionId = (int)reader["id"];
                     string option = (string)reader["option"];
-                    float price = (int)reader["price"];
+                    float price = float.Parse(reader["price"].ToString());
 
                     Option optionObj = new Option(optionId, option, price, EOptionsLevel.Entry);
 
@@ -101,7 +101,7 @@ namespace CarDealer.DAO
                 {
                     int optionId = (int)reader["id"];
                     string option = (string)reader["option"];
-                    float price = (int)reader["price"];
+                    float price = (float)reader["price"];
 
                     Option optionObj = new Option(optionId, option, price, EOptionsLevel.Premium);
 
@@ -129,7 +129,7 @@ namespace CarDealer.DAO
                 {
                     int optionId = (int)reader["id"];
                     string option = (string)reader["option"];
-                    float price = (int)reader["price"];
+                    float price = float.Parse(reader["price"].ToString());
 
                     Option optionObj = new Option(optionId, option, price, EOptionsLevel.Luxury);
 
@@ -154,7 +154,7 @@ namespace CarDealer.DAO
 
                 while (reader.Read())
                 {
-                    price = reader.GetFloat(0);
+                    price = float.Parse(reader["price"].ToString());
                 }
 
                 reader.Close();
@@ -176,7 +176,7 @@ namespace CarDealer.DAO
 
                 while (reader.Read())
                 {
-                    price = reader.GetFloat(0);
+                    price = float.Parse(reader["price"].ToString());
                 }
 
                 reader.Close();
@@ -198,7 +198,7 @@ namespace CarDealer.DAO
 
                 while (reader.Read())
                 {
-                    price = reader.GetFloat(0);
+                    price = float.Parse(reader["price"].ToString());
                 }
 
                 reader.Close();
