@@ -13,9 +13,14 @@ namespace CarDealer.CarManufacturing
     {
         protected IDecoratedCar decoratedCar;
 
-        public double FinalPrice { get => decoratedCar.FinalPrice; set => decoratedCar.FinalPrice = value; }
-        public List<Option> Options { get => decoratedCar.Options; set => decoratedCar.Options = value; }
-        public EOptionsLevel OptionsLevel { get => decoratedCar.OptionsLevel; set => decoratedCar.OptionsLevel = value; }
+        public int Id { get => decoratedCar.Id; set => decoratedCar.Id = value; }
+        public Model Model { get => decoratedCar.Model; set => decoratedCar.Model = value; }
+        public Color Color { get => decoratedCar.Color; set => decoratedCar.Color = value; }
+        public Engine Engine { get => decoratedCar.Engine; set => decoratedCar.Engine = value; }
+        public DateTime BuildDate { get => decoratedCar.BuildDate; set => decoratedCar.BuildDate = value; }
+        public int Mileage { get => decoratedCar.Mileage; set => decoratedCar.Mileage = value; }
+        public float InitialPrice { get => decoratedCar.InitialPrice; set => decoratedCar.InitialPrice = value; }
+        public float FinalPrice { get => decoratedCar.FinalPrice; set => decoratedCar.FinalPrice = value; }
 
         public CarDecorator(IDecoratedCar decoCar)
         {

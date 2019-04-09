@@ -1,4 +1,5 @@
 ﻿using CarDealer.Enums;
+using CarDealer.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,29 +8,18 @@ using System.Threading.Tasks;
 
 namespace CarDealer.Models
 {
-    class CarInventory
+    class CarInventory : IDecoratedCar
     {
-        private int id;
-        private Model model;
-        private Color color;
-        private Engine engine;
-        private DateTime buildDate;
-        private int mileage;
-        private float initialPrice;
-        private float finalPrice;
-        private List<Option> options;
-        private EOptionsLevel optionsLevel;
-
-        public int Id { get => id; set => id = value; }
-        public Model Model { get => model; set => model = value; }
-        public Color Color { get => color; set => color = value; }
-        public Engine Engine { get => engine; set => engine = value; }
-        public DateTime BuildDate { get => buildDate; set => buildDate = value; }
-        public int Mileage { get => mileage; set => mileage = value; }
-        public float InitialPrice { get => initialPrice; set => initialPrice = value; }
-        public float FinalPrice { get => finalPrice; set => finalPrice = value; }
-        private List<Option> Options { get => options; set => options = value; }
-        private EOptionsLevel OptionsLevel { get => optionsLevel; set => optionsLevel = value; }
+        public int Id { get; set; }
+        public Model Model { get; set; }
+        public Color Color { get; set; }
+        public Engine Engine { get; set; }
+        public DateTime BuildDate { get; set; }
+        public int Mileage { get; set; }
+        public float InitialPrice { get; set; }
+        public float FinalPrice { get; set; }
+        private List<Option> Options { get; set; }
+        private EOptionsLevel OptionsLevel { get; set; }
 
         public CarInventory(
             int id,
@@ -41,31 +31,36 @@ namespace CarDealer.Models
             float initialPrice
             )
         {
-            this.id = id;
-            this.model = model;
-            this.color = color;
-            this.engine = engine;
-            this.buildDate = buildDate;
-            this.mileage = mileage;
-            this.initialPrice = initialPrice;
-            this.optionsLevel = EOptionsLevel.Basic;
+            Id = id;
+            Model = model;
+            Color = color;
+            Engine = engine;
+            BuildDate = buildDate;
+            Mileage = mileage;
+            InitialPrice = initialPrice;
+            OptionsLevel = EOptionsLevel.Basic;
         }
 
         public override string ToString()
         {
-            return $"{model}{Environment.NewLine}{color}{Environment.NewLine}{engine}{Environment.NewLine}" +
-                $"Build date: {buildDate} Mileage: {mileage}{Environment.NewLine}Initial price: {initialPrice} Final Price: {finalPrice}" +
-                $"{Environment.NewLine}Options level: {optionsLevel}{Environment.NewLine}Options: {Environment.NewLine}{getOptionsAsString()}";
+            return $"{Model}{Environment.NewLine}{Color}{Environment.NewLine}{Engine}{Environment.NewLine}" +
+                $"Build date: {BuildDate} Mileage: {Mileage}{Environment.NewLine}Initial price: {InitialPrice} Final Price: {FinalPrice}" +
+                $"{Environment.NewLine}Options level: {OptionsLevel}{Environment.NewLine}Options: {Environment.NewLine}{GetOptionsAsString()}";
         }
 
-        private string getOptionsAsString()
+        private string GetOptionsAsString()
         {
             StringBuilder builder = new StringBuilder();
-            foreach(var option in options)
+            foreach(var option in Options)
             {
                 builder.Append(option.ToString()).Append(Environment.NewLine);
             }
             return builder.ToString();
+        }
+
+        public void SetOptionsLevel()
+        {
+            FinalPrice = InitialPrice;
         }
     } 
 }

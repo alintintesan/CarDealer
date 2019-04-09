@@ -10,9 +10,14 @@ namespace CarDealer.Interfaces
 {
     interface IDecoratedCar
     {
-        double FinalPrice { get; set; }
-        List<Option> Options { get; set; }
-        EOptionsLevel OptionsLevel { get; set; }
+        int Id { get; set; }
+        Model Model { get; set; }
+        Color Color { get; set; }
+        Engine Engine { get; set; }
+        DateTime BuildDate { get; set; }
+        int Mileage { get; set; }
+        float InitialPrice { get; set; }
+        float FinalPrice { get; set; }
 
         void SetOptionsLevel();
     }
