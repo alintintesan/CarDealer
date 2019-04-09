@@ -43,9 +43,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CarBuilder.cs" />
+    <Compile Include="CarBuilderDirector.cs" />
     <Compile Include="DAO\ModelDAO.cs" />
     <Compile Include="Enums\EFuelType.cs" />
     <Compile Include="Enums\EOptionsLevel.cs" />
+    <Compile Include="Interfaces\ICarBuilder.cs" />
     <Compile Include="Interfaces\IModelDAO.cs" />
     <Compile Include="Models\Brand.cs" />
     <Compile Include="Models\CarInventory.cs" />
