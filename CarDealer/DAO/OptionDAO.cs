@@ -19,7 +19,7 @@ namespace CarDealer.DAO
 
             using (SqlConnection connection = DatabaseHelper.Instance.GetConnection())
             {
-                string sql = "select * from Option";
+                string sql = "select * from Options";
                 SqlCommand command = new SqlCommand(sql, connection);
                 connection.Open();
 
@@ -32,17 +32,17 @@ namespace CarDealer.DAO
                     float price = (int)reader["price"];
                     string level = (string)reader["level"];
 
-                    EOptionsLevel eLevel = EOptionsLevel.Basic; // TODO AH: error handling for non-existent types?
+                    EOptionsLevel eLevel = EOptionsLevel.Basic;
 
                     switch(level)
                     {
-                        case "entry":
+                        case "Entry":
                             eLevel = EOptionsLevel.Entry;
                             break;
-                        case "premium":
+                        case "Premium":
                             eLevel = EOptionsLevel.Premium;
                             break;
-                        case "luxury":
+                        case "Luxury":
                             eLevel = EOptionsLevel.Luxury;
                             break;
                     }
@@ -63,7 +63,7 @@ namespace CarDealer.DAO
 
             using (SqlConnection connection = DatabaseHelper.Instance.GetConnection())
             {
-                string sql = "select id, option, price from Option where level = 'entry'";
+                string sql = "select id, option, price from Options where level = 'Entry'";
                 SqlCommand command = new SqlCommand(sql, connection);
                 connection.Open();
 
@@ -91,7 +91,7 @@ namespace CarDealer.DAO
 
             using (SqlConnection connection = DatabaseHelper.Instance.GetConnection())
             {
-                string sql = "select id, option, price from Option where level = 'premium'";
+                string sql = "select id, option, price from Options where level = 'Premium'";
                 SqlCommand command = new SqlCommand(sql, connection);
                 connection.Open();
 
@@ -119,7 +119,7 @@ namespace CarDealer.DAO
 
             using (SqlConnection connection = DatabaseHelper.Instance.GetConnection())
             {
-                string sql = "select id, option, price from Option where level = 'entry'";
+                string sql = "select id, option, price from Options where level = 'Entry'";
                 SqlCommand command = new SqlCommand(sql, connection);
                 connection.Open();
 
@@ -146,7 +146,7 @@ namespace CarDealer.DAO
             float price = 0;
             using (SqlConnection connection = DatabaseHelper.Instance.GetConnection())
             {
-                string sql = "select price from Option where level = 'entry'";
+                string sql = "select price from Options where level = 'Entry'";
                 SqlCommand command = new SqlCommand(sql, connection);
                 connection.Open();
 
@@ -168,7 +168,7 @@ namespace CarDealer.DAO
             float price = 0;
             using (SqlConnection connection = DatabaseHelper.Instance.GetConnection())
             {
-                string sql = "select price from Option where level = 'premium'";
+                string sql = "select price from Options where level = 'Premium'";
                 SqlCommand command = new SqlCommand(sql, connection);
                 connection.Open();
 
@@ -190,7 +190,7 @@ namespace CarDealer.DAO
             float price = 0;
             using (SqlConnection connection = DatabaseHelper.Instance.GetConnection())
             {
-                string sql = "select price from Option where level = 'luxury'";
+                string sql = "select price from Options where level = 'Luxury'";
                 SqlCommand command = new SqlCommand(sql, connection);
                 connection.Open();
 
