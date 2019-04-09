@@ -18,8 +18,13 @@ namespace CarDealer.Utils
 
         public static readonly string MSG_HELLO = "Hello!";
         public static readonly string MSG_HELLO_NAME = "Hello {0}!";
+        public static readonly string MSG_BYE = "Have a nice day!";
 
         #endregion
+        
+        public static readonly string MSG_OPTION = "{0}) {1}{2}";
+        public static readonly string MSG_AUTH = "{0}) {1}{2}";
+
 
         /// <summary>
         /// Prints a string to the console
@@ -47,6 +52,26 @@ namespace CarDealer.Utils
             {
                 Console.WriteLine(item);
             }
+        }
+
+        /// <summary>
+        /// Prints a list of options where the user can choose from
+        /// </summary>
+        public static void PrintOptions(Dictionary<int, string> options)
+        {
+            foreach (var option in options)
+            {
+                Print(MSG_OPTION, option.Key, option.Value, Environment.NewLine);
+            }
+            Print(Environment.NewLine);
+        }
+
+        /// <summary>
+        /// Reads user's input from console
+        /// </summary>
+        public static string Read()
+        {
+            return Console.ReadLine();
         }
     }
 }

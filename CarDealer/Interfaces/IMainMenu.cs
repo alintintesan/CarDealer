@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace CarDealer.Interfaces
 {
-    interface IModelDAO
+    interface IMainMenu
     {
-        List<Model> GetAllModels();
-        List<Model> GetBrandModels(int brandId);
+        bool authenticate(string username, string password, out Client client);
+        bool register(Client client);
     }
 }
