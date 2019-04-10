@@ -8,18 +8,15 @@ using System.Data.SqlClient;
 
 namespace CarDealer.Utils
 {
-    class DatabaseHelper
+    class DatabaseHelper // MUST MODIFY HERE (SINGLETON)
     {
         private readonly string CONNECTION_STRING = ConfigurationManager.ConnectionStrings["connectionString"].ConnectionString;
 
         private static readonly Object padlock = new Object();
         private static DatabaseHelper instance;
-        private SqlConnection connection;
+        // private SqlConnection connection;
 
-        private DatabaseHelper()
-        {
-            connection = new SqlConnection(CONNECTION_STRING);
-        }
+        private DatabaseHelper() { }
 
         public static DatabaseHelper Instance
         {
@@ -39,7 +36,7 @@ namespace CarDealer.Utils
 
         public SqlConnection GetConnection()
         {
-            return connection;
+            return new SqlConnection(CONNECTION_STRING);
         }
     }
 }
