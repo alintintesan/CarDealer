@@ -41,6 +41,10 @@ namespace CarDealer.Models
             OptionsLevel = EOptionsLevel.Basic;
         }
 
+        public CarInventory()
+        {
+        }
+
         public override string ToString()
         {
             return $"{Model}{Environment.NewLine}{Color}{Environment.NewLine}{Engine}{Environment.NewLine}" +
