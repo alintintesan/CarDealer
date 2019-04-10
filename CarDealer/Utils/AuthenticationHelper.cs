@@ -8,7 +8,7 @@ namespace CarDealer.Utils
 {
     class AuthenticationHelper
     {
-        public string ReadLineMasked(char mask = '*')
+        public static string ReadLineMasked(char mask = '*')
         {
             var password = new StringBuilder();
             ConsoleKeyInfo keyInfo;
