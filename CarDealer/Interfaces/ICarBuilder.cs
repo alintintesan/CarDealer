@@ -8,9 +8,9 @@ namespace CarDealer.Models
 {
     public interface ICarBuilder
     {
-        void SetModel(string Model);
-        void SetColor(string Color);
-        void SetEngine(string Engine); // asta cred ca trebuie EFuelType, nu string
+        void SetModel(Model model);
+        void SetColor(Color color);
+        void SetEngine(Engine engine);
         CarInventory GetCar();
     }
 }

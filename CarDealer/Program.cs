@@ -17,7 +17,5 @@ namespace CarDealer
             List<Model> models = modelDAO.GetAllModels();
             MessageHelper.PrintList(models);
         }
-
-        //builder test commit
     }
 }

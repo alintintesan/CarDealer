@@ -8,26 +8,31 @@ namespace CarDealer.Models
 { 
     public class CarBuilder : ICarBuilder
     {
-        private CarInventory car { get; set; } = new CarInventory();
+        private CarInventory car;
+
+        public CarBuilder()
+        {
+            car = new CarInventory();
+        }
 
         public CarInventory GetCar()
         {
             return car;
         }
 
-        public void SetColor(string Color)
+        public void SetColor(Color color)
         {
-            car.Color = Color;
+            car.Color = color;
         }
 
-        public void SetEngine(string Engine)
+        public void SetEngine(Engine engine)
         {
-            car.Engine = Engine;
+            car.Engine = engine;
         }
 
-        public void SetModel(string Model)
+        public void SetModel(Model model)
         {
-            car.Model = Model;
+            car.Model = model;
         }
     }
 }

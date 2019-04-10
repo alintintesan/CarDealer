@@ -10,11 +10,11 @@ namespace CarDealer
     class CarBuilderDirector
     {
         public ICarBuilder builder { get; set; }
-        public void Construct(string Model, string Color, string Engine)
+        public void Construct(Model model, Color color, Engine engine)
         {
-            builder.SetModel("");
-            builder.SetColor("");
-            builder.SetEngine("");
+            builder.SetModel(model);
+            builder.SetColor(color);
+            builder.SetEngine(engine);
         }
         public CarBuilderDirector()
         {
