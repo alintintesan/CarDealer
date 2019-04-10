@@ -9,7 +9,11 @@ namespace CarDealer
 {
     class CarBuilderDirector
     {
-        public ICarBuilder builder { get; set; }
+        private ICarBuilder builder;
+        CarBuilderDirector(ICarBuilder builder)
+        {
+            this.builder = builder;
+        }
         public void Construct(Model model, Color color, Engine engine)
         {
             builder.SetModel(model);
