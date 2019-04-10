@@ -43,8 +43,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CarBuilder.cs" />
-    <Compile Include="CarBuilderDirector.cs" />
+    <Compile Include="CarManufacturing\CarBuilder.cs" />
+    <Compile Include="CarManufacturing\CarBuilderDirector.cs" />
     <Compile Include="CarManufacturing\CarDecorator.cs" />
     <Compile Include="CarManufacturing\EntryDecorator.cs" />
     <Compile Include="CarManufacturing\LuxuryDecorator.cs" />

@@ -1,12 +1,13 @@
-﻿using System;
+﻿using CarDealer.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CarDealer.Models
+namespace CarDealer.Interfaces
 {
-    public interface ICarBuilder
+    interface ICarBuilder
     {
         void SetModel(Model model);
         void SetColor(Color color);

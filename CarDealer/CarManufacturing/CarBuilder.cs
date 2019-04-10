@@ -1,12 +1,14 @@
-﻿using System;
+﻿using CarDealer.Interfaces;
+using CarDealer.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CarDealer.Models
+namespace CarDealer.CarManufacturing
 { 
-    public class CarBuilder : ICarBuilder
+    class CarBuilder : ICarBuilder
     {
         private CarInventory car;
 
