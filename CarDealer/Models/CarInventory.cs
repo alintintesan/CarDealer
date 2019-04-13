@@ -66,5 +66,11 @@ namespace CarDealer.Models
         {
             FinalPrice = InitialPrice;
         }
+
+        public CarInventory Clone()
+        {
+            CarInventory carInventory = (CarInventory)this.MemberwiseClone();
+            return carInventory;
+        }
     } 
 }
