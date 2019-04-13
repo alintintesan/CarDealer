@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CarDealer.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,23 +7,15 @@ using System.Threading.Tasks;
 
 namespace CarDealer.Models
 {
-    class Client
+    class Client : IClient
     {
-        private int id;
-        private string username;
-        private string password;
-        private string firstName;
-        private string lastName;
-        private string creditCardNo;
-        private float balance;
-
-        public int Id { get => id; set => id = value; }
-        public string Username { get => username; set => username = value; }
-        public string Password { get => password; set => password = value; }
-        public string FirstName { get => firstName; set => firstName = value; }
-        public string LastName { get => lastName; set => lastName = value; }
-        public string CreditCardNo { get => creditCardNo; set => creditCardNo = value; }
-        public float Balance { get => balance; set => balance = value; }
+        public int Id { get; set; }
+        public string Username { get; set; }
+        public string Password { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string CreditCardNo { get; set; }
+        public float Balance { get; set; }
 
         public Client(
             int id, 
@@ -33,18 +26,23 @@ namespace CarDealer.Models
             string creditCardNo,
             float balance)
         {
-            this.id = id;
-            this.username = username;
-            this.password = password;
-            this.firstName = firstName;
-            this.lastName = lastName;
-            this.creditCardNo = creditCardNo;
-            this.balance = balance;
+            Id = id;
+            Username = username;
+            Password = password;
+            FirstName = firstName;
+            LastName = lastName;
+            CreditCardNo = creditCardNo;
+            Balance = balance;
         }
 
         public override string ToString()
         {
-            return $"{firstName} {lastName}";
+            return $"{FirstName} {LastName}";
+        }
+
+        public void Update(Deal deal)
+        {
+            Console.WriteLine("[NEW CAR DEALS] The car |{0}, {1}| is now at the new price of ${2}, discounted from ${3}.", deal.Car.Model.CarBrand, deal.Car.Model.CarModel, deal.DiscountedPrice, deal.Car.InitialPrice);
         }
     }
 }
