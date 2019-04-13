@@ -9,12 +9,13 @@ namespace CarDealer.Models
 {
     class Deal
     {
-        private int id;
-        private CarInventory car;
         private float discountedPrice;
 
-        public int Id { get => id; set => id = value; }
-        public CarInventory Car { get => car; set => car = value; }
+        public int Id { get; set; }
+        public CarInventory Car { get; set; }
+        public List<IClient> Clients { get; set; }
+        private List<Deal> latestDeals { get; set; }
+
         public float DiscountedPrice
         {
             get
@@ -31,18 +32,11 @@ namespace CarDealer.Models
             }
         }
 
-        public List<IClient> Clients { get; set; }
-
-        public Deal(int id, CarInventory car)
+        public Deal(int id, CarInventory car, float discountPrice)
         {
-            this.id = id;
-            this.car = car;
-            this.discountedPrice = 9999999;
-        }
-
-        public override string ToString()
-        {
-            return $"Car:{Environment.NewLine}{Car}{Environment.NewLine}Discounted price: {DiscountedPrice}";
+            Id = id;
+            Car = car;
+            discountedPrice = discountPrice;
         }
 
         public void Attach(IClient client)
@@ -65,6 +59,23 @@ namespace CarDealer.Models
                 {
                     client.Update(this);
                 }
+        }
+
+        public List<Deal> GetLatestDeals()
+        {
+            return latestDeals;
+        }
+
+        public void AddDeal(Deal deal)
+        {
+            if (latestDeals == null)
+                latestDeals = new List<Deal>();
+            latestDeals.Add(deal);
+        }
+
+        public override string ToString()
+        {
+            return $"Car:{Environment.NewLine}{Car}{Environment.NewLine}Discounted price: {DiscountedPrice}";
         }
     }
 }

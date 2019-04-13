@@ -35,14 +35,14 @@ namespace CarDealer.Models
             Balance = balance;
         }
 
-        public override string ToString()
-        {
-            return $"{FirstName} {LastName}";
-        }
-
         public void Update(Deal deal)
         {
             Console.WriteLine("[NEW CAR DEALS] The car |{0}, {1}| is now at the new price of ${2}, discounted from ${3}.", deal.Car.Model.CarBrand, deal.Car.Model.CarModel, deal.DiscountedPrice, deal.Car.InitialPrice);
+        }
+
+        public override string ToString()
+        {
+            return $"{FirstName} {LastName}";
         }
     }
 }
