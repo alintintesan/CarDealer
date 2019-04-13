@@ -14,6 +14,15 @@ namespace CarDealer
             //test();
             MainMenuProxy menu = new MainMenuProxy(new MainMenu());
             menu.initiate();
+
+            //Chain of Responsibility Pattern
+            /*AbstractLogger loggerChain = getChainOfLoggers();
+
+            loggerChain.logMessage(AbstractLogger.info,"This is an information.");
+
+            loggerChain.logMessage(AbstractLogger.debug,"This is an debug level information.");
+
+            loggerChain.logMessage(AbstractLogger.error,"This is an error information.");*/
         }
 
         static void test()
@@ -38,6 +47,19 @@ namespace CarDealer
             {
                 MessageHelper.Print("Auth failed");
             }
+        }
+
+        private static AbstractLogger getChainOfLoggers()
+        {
+
+            AbstractLogger errorLogger = new ErrorLogger(AbstractLogger.error);
+            AbstractLogger fileLogger = new FileLogger(AbstractLogger.debug);
+            AbstractLogger consoleLogger = new ConsoleLogger(AbstractLogger.info);
+
+            errorLogger.setNextLogger(fileLogger);
+            fileLogger.setNextLogger(consoleLogger);
+
+            return errorLogger;
         }
     }
 }
