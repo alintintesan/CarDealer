@@ -55,7 +55,7 @@ namespace CarDealer.DAO
                 {
                     string operation = (string)reader["operation"];
 
-                    operationObj = new Operation(id, operation,cost);
+                    operationObj = new Operation(id, operation, cost);
                 }
                 reader.Close();
             }
