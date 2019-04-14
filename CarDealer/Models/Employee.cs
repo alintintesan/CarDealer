@@ -20,17 +20,12 @@ namespace CarDealer.Models
         public string LastName { get => lastName; set => lastName = value; }
         public string Position { get => position; set => position = value; }
 
-        public Employee(int id, string firstName, string lastName, string position)
+        public Employee(int id, string firstName, string lastName, string position) : base()
         {
             this.id = id;
             this.firstName = firstName;
             this.lastName = lastName;
             this.position = position;
-        }
-
-        public Employee() : base()
-        {
-
         }
 
         protected override void GreetClient()

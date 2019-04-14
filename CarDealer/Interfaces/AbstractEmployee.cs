@@ -11,7 +11,7 @@ namespace CarDealer.Interfaces
     {
         private static double probability = 60;
 
-        protected AbstractEmployee nextEmployee { get; set; }
+        protected AbstractEmployee NextEmployee { get; set; }
 
         protected bool isAvailable;
 
@@ -20,9 +20,9 @@ namespace CarDealer.Interfaces
             isAvailable = RandomValueGenerator.GetRandomBool(probability);
         }
 
-        public void SetNextEmployee(AbstractEmployee aEmployee)
+        public void SetNextEmployee(AbstractEmployee employee)
         {
-
+            NextEmployee = employee;
         }
 
         protected abstract void GreetClient();
