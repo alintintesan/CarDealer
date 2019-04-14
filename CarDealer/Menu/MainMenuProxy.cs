@@ -474,7 +474,8 @@ namespace CarDealer.Menu
 
             MessageHelper.Print(MessageHelper.MSG_CAR_BRAND);
             availableBrands = mainMenu.GetAllBrands();
-            MessageHelper.PrintList<Brand>(availableBrands);
+            var brandList = availableBrands.Select(b => b.CarBrand).ToList();
+            MessageHelper.PrintOptions(AddOptions(brandList));
 
             MessageHelper.Print(MessageHelper.MSG_INSERT_OPTION);
             string selectedOption = MessageHelper.Read();
@@ -483,8 +484,9 @@ namespace CarDealer.Menu
             {
                 Brand selectedBrand = availableBrands[optionIndex1 - 1];
                 availableModels = mainMenu.GetBrandModels(selectedBrand);
-                MessageHelper.Print(MessageHelper.MSG_CAR_MODEL, selectedBrand.CarBrand);
-                MessageHelper.PrintList(availableModels);
+                var modelsList = availableModels.Select(m => m.CarModel).ToList();
+                MessageHelper.Print(MessageHelper.MSG_CAR_MODEL, selectedBrand);
+                MessageHelper.PrintOptions(AddOptions(modelsList));
             }
             else
             {
@@ -505,12 +507,12 @@ namespace CarDealer.Menu
                 int currentYear = DateTime.Today.Year;
                 int yearDiff = currentYear - insertedFabricationYear + 1;
                 // se scade procentajul dat de anii masinii * 2
-                float priceByYears = basePrice - (yearDiff * 2 / 100 * basePrice);
+                float priceByYears = basePrice - (((yearDiff * 2) / 100) * basePrice);
 
                 // se scade procentajul dat de kilometrajul actual al masinii raportat la 25000 km
-                float priceByMileage = basePrice - ((insertedMileage / MILEAGE_LIMIT) / 100 * basePrice); 
+                float priceByMileage = basePrice - (((insertedMileage / MILEAGE_LIMIT) / 100) * basePrice); 
 
-                double finalPrice = (priceByYears * priceByMileage) / 2;
+                double finalPrice = (priceByYears + priceByMileage) / 2;
 
                 MessageHelper.Print(MessageHelper.MSG_CAR_EVALUATION, finalPrice);
             }
