@@ -56,6 +56,7 @@
     <Compile Include="Enums\EFuelType.cs" />
     <Compile Include="Enums\EOptionsLevel.cs" />
     <Compile Include="Interfaces\ICarBuilder.cs" />
+    <Compile Include="Interfaces\ICarPrototype.cs" />
     <Compile Include="Interfaces\IClient.cs" />
     <Compile Include="Interfaces\IDecoratedCar.cs" />
     <Compile Include="Interfaces\IModelDAO.cs" />
@@ -84,6 +85,7 @@
     <Compile Include="Utils\AuthenticationHelper.cs" />
     <Compile Include="Utils\DatabaseHelper.cs" />
     <Compile Include="Utils\MessageHelper.cs" />
+    <Compile Include="Utils\ObjectHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

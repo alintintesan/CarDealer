@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CarDealer.Models
 {
-    class Option
+    [Serializable] class Option
     {
         private int id;
         private string carOption;
