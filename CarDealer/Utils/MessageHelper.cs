@@ -52,6 +52,9 @@ namespace CarDealer.Utils
         public static readonly string MSG_RENTAL_NO_OF_DAYS = "Please enter the number of days you want to rent this car:";
         public static readonly string MSG_INVALID_DAYS = "Invalid number of days, please try again!";
 
+        public static readonly string MSG_SERVICE_WELCOME = "It seems like you have a problem with your car, don't worry, we'll fix it for you! Please choose what you want us to fix!";
+
+
         /// <summary>
         /// Prints a string to the console
         /// </summary>

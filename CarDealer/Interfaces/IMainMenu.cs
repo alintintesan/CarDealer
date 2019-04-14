@@ -17,5 +17,6 @@ namespace CarDealer.Interfaces
         List<Color> GetAllColors();
         void TestDrive(CarInventory car, int distance);
         List<CarInventory> GetCarsForRent();
+        List<Operation> GetAllOperation();
     }
 }
