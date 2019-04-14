@@ -14,12 +14,14 @@ namespace CarDealer.Menu
         private IClientDAO clientDAO;
         private ICarInventoryDAO carInventoryDAO;
         private IColorDAO colorDAO;
+        private IOperationsDAO operationsDAO;
 
         public MainMenu()
         {
             clientDAO = new ClientDAO();
             carInventoryDAO = new CarInventoryDAO();
             colorDAO = new ColorDAO();
+            operationsDAO = new OperationsDAO();
         }
 
         public bool Authenticate(string username, string password, out Client client)
@@ -50,6 +52,11 @@ namespace CarDealer.Menu
         public List<Color> GetAllColors()
         {
             return colorDAO.GetAllColors();
+        }
+
+        public List<Operation> GetAllOperation()
+        {
+            return operationsDAO.GetAllOperations();
         }
     }
 }

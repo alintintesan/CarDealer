@@ -1,0 +1,15 @@
+﻿using CarDealer.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace CarDealer.Interfaces
+{
+    interface IOperationsDAO
+    {
+        List<Operation> GetAllOperations();
+        Operation GetOperation(int id);
+    }
+}

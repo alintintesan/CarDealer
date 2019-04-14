@@ -329,7 +329,26 @@ namespace CarDealer.Menu
 
         private void CarService()
         {
+            MessageHelper.Print(MessageHelper.MSG_SERVICE_WELCOME);
+            List<Operation> operations = mainMenu.GetAllOperation();
 
+            List<string> operationsList = operations.Select(operation => operation.ToString()).ToList();
+
+            var options = AddOptions(operationsList);
+            MessageHelper.PrintOptions(options);
+            MessageHelper.Print(MessageHelper.MSG_INSERT_OPTION);
+
+            string selectedOption = MessageHelper.Read();
+            bool success = int.TryParse(selectedOption, out int optionIndex);
+            if (success && optionIndex >= 1 && optionIndex <= operations.Count)
+            {
+
+                Operation operation = operations[optionIndex - 1];
+            }
+            else
+            {
+                MessageHelper.Print(MessageHelper.MSG_INVALID_OPTION);
+            }
         }
 
         private void BuildCustomCar()
