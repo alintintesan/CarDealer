@@ -505,14 +505,15 @@ namespace CarDealer.Menu
                 int.TryParse(MessageHelper.Read(), out int insertedFabricationYear);
                 float basePrice = mainMenu.GetModelBasePrice(selectedModel.Id);
                 int currentYear = DateTime.Today.Year;
-                int yearDiff = currentYear - insertedFabricationYear + 1;
+                int yearDiff = currentYear - insertedFabricationYear;
+
                 // se scade procentajul dat de anii masinii * 2
-                float priceByYears = basePrice - (((yearDiff * 2) / 100) * basePrice);
+                double priceByYears = basePrice - (((yearDiff * 2.0) / 100.0) * basePrice);
 
                 // se scade procentajul dat de kilometrajul actual al masinii raportat la 25000 km
-                float priceByMileage = basePrice - (((insertedMileage / MILEAGE_LIMIT) / 100) * basePrice); 
+                double priceByMileage = basePrice - (((insertedMileage / MILEAGE_LIMIT) / 100.0) * basePrice); 
 
-                double finalPrice = (priceByYears + priceByMileage) / 2;
+                double finalPrice = (priceByYears + priceByMileage) / 2.0;
 
                 MessageHelper.Print(MessageHelper.MSG_CAR_EVALUATION, finalPrice);
             }
