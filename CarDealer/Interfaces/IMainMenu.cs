@@ -24,5 +24,6 @@ namespace CarDealer.Interfaces
         List<Employee> GetEmployeesByPosition(string position);
         List<CarInventory> GetDiscountedCars();
         List<Deal> GetDeals();
+        float GetModelBasePrice(int id);
     }
 }

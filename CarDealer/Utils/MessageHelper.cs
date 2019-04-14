@@ -40,6 +40,13 @@ namespace CarDealer.Utils
         public static readonly string MSG_COLOR_LIST = $"{Environment.NewLine}Here are all the available colors, choose the one you like the best!";
         public static readonly string MSG_CAR_DETAILS = "Here are more details about this car:";
         public static readonly string MSG_CAR_TRANSACTION_SUCCESS = "Purchase and payment of your {0} completed successfully! Enjoy your new car!";
+        public static readonly string MSG_CAR_BRAND = "Please choose from the list the brand you want to sell:";
+        public static readonly string MSG_CAR_MODEL = "Please choose from the list the {0} model you want to sell:";
+        public static readonly string MSG_CAR_SELL_DETAILS = "Please enter few details about the car you want to sell:";
+        public static readonly string MSG_CAR_MILEAGE = "Mileage:";
+        public static readonly string MSG_CAR_YEAR = "Fabrication year:";
+        public static readonly string MSG_CAR_EVALUATION = "We can offer {0} for your car. Do we have a deal?";
+        public static readonly string MSG_CAR_BUYING_SUCCESS = $"{Environment.NewLine}Please doing business with you!{Environment.NewLine}";
         public static readonly string MSG_CAR_TRANSACTION_SUCCESS_CLONE = "Purchase and payment of your {0} completed successfully! Enjoy your new car, painted in {1} just for you!";
         public static readonly string MSG_CAR_TRANSACTION_SUCCESS_RENT = "Payment of {0} completed successfully!" + Environment.NewLine +
             "The rent period is {1} days for this {2}!" + Environment.NewLine + "Enjoy the car and bring it back in one piece!";

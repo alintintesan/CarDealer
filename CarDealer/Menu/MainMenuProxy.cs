@@ -22,6 +22,7 @@ namespace CarDealer.Menu
         private static float DEFAULT_BALANCE = 500000;
         private static float DISCOUNT = 200;
         private static int TEST_DRIVE_DISTANCE = 1;
+        private static int MILEAGE_LIMIT = 25000;
 
         public Client LoggedClient { get => loggedClient; set => loggedClient = value; }
 
@@ -134,7 +135,7 @@ namespace CarDealer.Menu
         private void OptionsMenu()
         {
             List<Deal> deals = mainMenu.GetDeals();
-            foreach(Deal deal in deals)
+            foreach (Deal deal in deals)
             {
                 deal.Attach(loggedClient);
                 deal.Notify();
@@ -524,10 +525,10 @@ namespace CarDealer.Menu
             {
                 employees[i].SetNextEmployee(employees[i + 1]);
             }
-            
+
             for (int i = 0; i < employees.Count; i++)
             {
-                if(employees[i].isAvailable)
+                if (employees[i].isAvailable)
                 {
                     employees[i].GreetClient();
                     break;
@@ -540,7 +541,7 @@ namespace CarDealer.Menu
             var options = AddOptions(optionsList);
             MessageHelper.PrintOptions(options);
             MessageHelper.Print(MessageHelper.MSG_INSERT_OPTION);
-            
+
             Brand brand;
             Model model;
             Color color;
@@ -665,7 +666,7 @@ namespace CarDealer.Menu
             car.BuildDate = DateTime.Now;
 
             CarDecorator decorator;
-            switch(optionsLevel)
+            switch (optionsLevel)
             {
                 case EOptionsLevel.Basic:
                     car.SetOptionsLevel();
@@ -715,7 +716,96 @@ namespace CarDealer.Menu
 
         private void SellOwnCar()
         {
+            List<Employee> salesAgents = mainMenu.GetEmployeesByPosition(EmployeeDAO.SALES_REPRESENTATIVE);
+            List<AbstractEmployee> employees = new List<AbstractEmployee>();
+            RandomValueGenerator.Shuffle(employees);
+            foreach (var e in salesAgents)
+            {
+                AbstractEmployee abstractEmployee = e;
+                employees.Add(e);
+            }
+            for (int i = 0; i < employees.Count - 1; i++)
+            {
+                employees[i].SetNextEmployee(employees[i + 1]);
+            }
 
+            for (int i = 0; i < employees.Count; i++)
+            {
+                if (employees[i].isAvailable)
+                {
+                    employees[i].GreetClient();
+                    break;
+                }
+            }
+
+            List<Brand> availableBrands = new List<Brand>();
+            List<Model> availableModels = new List<Model>();
+
+            MessageHelper.Print(MessageHelper.MSG_CAR_BRAND);
+            availableBrands = mainMenu.GetAllBrands();
+            var brandList = availableBrands.Select(b => b.CarBrand).ToList();
+            MessageHelper.PrintOptions(AddOptions(brandList));
+
+            MessageHelper.Print(MessageHelper.MSG_INSERT_OPTION);
+            string selectedOption = MessageHelper.Read();
+            bool success = int.TryParse(selectedOption, out int optionIndex1);
+            if (success && optionIndex1 >= 1 && optionIndex1 <= availableBrands.Count)
+            {
+                Brand selectedBrand = availableBrands[optionIndex1 - 1];
+                availableModels = mainMenu.GetBrandModels(selectedBrand);
+                var modelsList = availableModels.Select(m => m.CarModel).ToList();
+                MessageHelper.Print(MessageHelper.MSG_CAR_MODEL, selectedBrand);
+                MessageHelper.PrintOptions(AddOptions(modelsList));
+            }
+            else
+            {
+                MessageHelper.Print(MessageHelper.MSG_INVALID_OPTION);
+            }
+
+            selectedOption = MessageHelper.Read();
+            success = int.TryParse(selectedOption, out int optionIndex2);
+            if (success && optionIndex2 >= 1 && optionIndex2 <= availableModels.Count)
+            {
+                Model selectedModel = availableModels[optionIndex2 - 1];
+                MessageHelper.Print(MessageHelper.MSG_CAR_SELL_DETAILS);
+                MessageHelper.Print(MessageHelper.MSG_CAR_MILEAGE);
+                int.TryParse(MessageHelper.Read(), out int insertedMileage);
+                MessageHelper.Print(MessageHelper.MSG_CAR_YEAR);
+                int.TryParse(MessageHelper.Read(), out int insertedFabricationYear);
+                float basePrice = mainMenu.GetModelBasePrice(selectedModel.Id);
+                int currentYear = DateTime.Today.Year;
+                int yearDiff = currentYear - insertedFabricationYear;
+
+                // se scade procentajul dat de anii masinii * 2
+                double priceByYears = basePrice - (((yearDiff * 2.0) / 100.0) * basePrice);
+
+                // se scade procentajul dat de kilometrajul actual al masinii raportat la 25000 km
+                double priceByMileage = basePrice - ((((double)insertedMileage / MILEAGE_LIMIT) / 100.0) * basePrice);
+
+                double finalPrice = basePrice - (basePrice - priceByYears) - (basePrice - priceByMileage);
+
+                MessageHelper.Print(MessageHelper.MSG_CAR_EVALUATION, finalPrice);
+                string choice = MessageHelper.GetUserInput(MessageHelper.MSG_YES_NO_CHOICE);
+
+                switch (choice)
+                {
+                    case "Y":
+                        bool transactionSucces = mainMenu.UpdateClientBalance(loggedClient, float.Parse(finalPrice.ToString()));
+                        if (transactionSucces)
+                        {
+                            MessageHelper.Print(MessageHelper.MSG_CAR_BUYING_SUCCESS);
+                        }
+                        else
+                        {
+                            MessageHelper.Print(MessageHelper.MSG_CAR_TRANSACTION_FAIL);
+                        }
+                        return;
+
+                    case "N":
+                        MessageHelper.Print(MessageHelper.MSG_CAR_TRANSACTION_FAIL);
+                        return;
+                }
+            }
         }
     }
 }
