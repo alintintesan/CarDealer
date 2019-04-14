@@ -329,7 +329,7 @@ namespace CarDealer.Menu
 
         private void CarService()
         {
-
+            MessageHelper.Print(MessageHelper.MSG_SERVICE_WELCOME);
         }
 
         private void BuildCustomCar()

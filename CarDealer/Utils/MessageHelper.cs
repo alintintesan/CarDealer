@@ -42,6 +42,7 @@ namespace CarDealer.Utils
         public static readonly string MSG_NOT_ENOUGH_MONEY = "You don't have enough money on your credit card!";
         public static readonly string MSG_NEGOCIATE = "The best I can do is {0} for this car. Do we have a deal?";
         public static readonly string MSG_REFUSE_DISCOUNT = "All right, maybe you can find another car that suits your needs better!";
+        public static readonly string MSG_SERVICE_WELCOME = "It seems like you have a problem with your car, don't worry, we'll fix it for you! Please choose what you want us to fix!";
 
         /// <summary>
         /// Prints a string to the console
