@@ -76,5 +76,36 @@ namespace CarDealer.DAO
 
             return models;
         }
+
+        public Model GetModel(int id)
+        {
+            Model modelObj = null;
+
+            using (SqlConnection connection = DatabaseHelper.Instance.GetConnection())
+            {
+                connection.Open();
+                string sql = "select Models.model, Models.basePrice, Brands.id, Brands.brand from Models " +
+                    "inner join Brands on Models.brandId = Brands.id where Models.id = @id";
+
+                SqlCommand command = new SqlCommand(sql, connection);
+                command.Parameters.AddWithValue("@id", id);
+
+                SqlDataReader reader = command.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    int brandId = (int)reader["id"];
+                    string brand = (string)reader["brand"];
+                    string model = (string)reader["model"];
+                    float basePrice = float.Parse(reader["basePrice"].ToString());
+
+                    Brand brandObj = new Brand(brandId, brand);
+                    modelObj = new Model(id, brandObj, model, basePrice);
+                }
+                reader.Close();
+            }
+
+            return modelObj;
+        }
     }
 }

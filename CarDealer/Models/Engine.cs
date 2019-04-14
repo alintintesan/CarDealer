@@ -10,16 +10,16 @@ namespace CarDealer.Models
     class Engine
     {
         private int id;
-        private EFuelType fuelType;
+        private string fuelType;
         private int power;
         private string capacity;
 
         public int Id { get => id; set => id = value; }
-        public EFuelType FuelType { get => fuelType; set => fuelType = value; }
+        public string FuelType { get => fuelType; set => fuelType = value; }
         public int Power { get => power; set => power = value; }
         public string Capacity { get => capacity; set => capacity = value; }
 
-        public Engine(int id, EFuelType type, int power, string capacity)
+        public Engine(int id, string type, int power, string capacity)
         {
             this.id = id;
             this.fuelType = type;

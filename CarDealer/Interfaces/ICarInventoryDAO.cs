@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace CarDealer.Interfaces
 {
-    interface IModelDAO
+    interface ICarInventoryDAO
     {
-        List<Model> GetAllModels();
-        List<Model> GetBrandModels(int brandId);
-        Model GetModel(int id);
+        List<CarInventory> GetAllCars();
     }
 }

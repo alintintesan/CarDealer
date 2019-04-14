@@ -13,37 +13,40 @@ namespace CarDealer.Menu
     {
         private Client loggedClient;
         private IMainMenu mainMenu;
-        private Dictionary<int, string> options;
 
         private static int DEFAULT_ID = 0;
+        private static string DEFAULT_CREDIT_CARD_NO = "12345678";
+        private static float DEFAULT_BALANCE = 500000;
+        private static float DISCOUNT = 200;
 
         public Client LoggedClient { get => loggedClient; set => loggedClient = value; }
 
         public MainMenuProxy(IMainMenu menu)
         {
             mainMenu = menu;
-            options = new Dictionary<int, string>();
         }
 
-        private void addOptions(string[] optionsList)
+        private Dictionary<int, string> AddOptions(List<string> optionsList)
         {
-            options.Clear();
+            Dictionary<int, string> options = new Dictionary<int, string>();
             int optionsCounter = 1;
             foreach (var option in optionsList)
             {
                 options.Add(optionsCounter, option);
                 optionsCounter++;
             }
+            return options;
         }
 
-        public void initiate()
+        public void Initialize()
         {
-            string[] options = new string[] { "Sign in", "Register", "Exit" };
-            addOptions(options);
+            List<string> optionsList = new List<string>() { "Sign in", "Register", "Exit" };
+            var options = AddOptions(optionsList);
 
             while (true)
             {
-                MessageHelper.PrintOptions(this.options);
+                MessageHelper.PrintOptions(options);
+                MessageHelper.Print(MessageHelper.MSG_INSERT_OPTION);
                 string selectedOption = MessageHelper.Read();
 
                 bool success = int.TryParse(selectedOption, out int optionIndex);
@@ -53,56 +56,289 @@ namespace CarDealer.Menu
                     {
                         case 1:
                             Authenticate();
-                            return;
+                            break;
                         case 2:
                             Register();
-                            return;
+                            break;
                         case 3:
                             MessageHelper.Print(MessageHelper.MSG_BYE);
                             Environment.Exit(0);
                             break;
+                        default:
+                            MessageHelper.Print(MessageHelper.MSG_INVALID_OPTION);
+                            break;
                     }
+                }
+                else
+                {
+                    MessageHelper.Print(MessageHelper.MSG_INVALID_OPTION);
                 }
             }
         }
 
-        public void Authenticate()
+        private void Authenticate()
         {
             while (true)
             {
-                MessageHelper.Print("Auth Username:");
-                string username = MessageHelper.Read();
-                string password = "pass";
+                string username = MessageHelper.GetUserInput(MessageHelper.MSG_USERNAME);
+                MessageHelper.Print(MessageHelper.MSG_PASSWORD);
+                string password = AuthenticationHelper.ReadLineMasked();
 
-                bool success = mainMenu.authenticate(username, password, out loggedClient);
+                bool success = mainMenu.Authenticate(username, password, out loggedClient);
 
-                if(success)
+                if (success)
                 {
                     MessageHelper.Print(MessageHelper.MSG_HELLO_NAME, loggedClient.FirstName);
+                    OptionsMenu();
                     return;
                 }
                 else
                 {
-                    MessageHelper.Print("Wrong cred, try again!");
+                    MessageHelper.Print(MessageHelper.MSG_AUTH_FAILED);
                 }
             }
         }
 
-        public void Register()
+        private void Register()
         {
-            Console.WriteLine("register");
-            Client client = new Client(DEFAULT_ID, "testzz", "pass", "first", "last", "12345678", 1000000);
-            bool success = mainMenu.register(client);
+            while (true)
+            {
+                string username = MessageHelper.GetUserInput(MessageHelper.MSG_USERNAME);
+                MessageHelper.Print(MessageHelper.MSG_PASSWORD);
+                string password = AuthenticationHelper.ReadLineMasked();
+                string firstName = MessageHelper.GetUserInput(MessageHelper.MSG_FIRST_NAME);
+                string lastName = MessageHelper.GetUserInput(MessageHelper.MSG_LAST_NAME);
+
+                Client client = new Client(DEFAULT_ID, username, password, firstName, lastName, DEFAULT_CREDIT_CARD_NO, DEFAULT_BALANCE);
+                bool success = mainMenu.Register(client);
+                if (success)
+                {
+                    MessageHelper.Print(MessageHelper.MSG_HELLO_NEW_USER, client.Username);
+                    loggedClient = client;
+                    OptionsMenu();
+                    return;
+                }
+                else
+                {
+                    MessageHelper.Print(MessageHelper.MSG_REGISTRATION_FAILED);
+                }
+            }
+        }
+
+        private void OptionsMenu()
+        {
+            // display deals
+
+            while (true)
+            {
+                List<string> optionsList = new List<string>()
+                { "Buy a car", "Rent a car", "Car service", "Build custom car", "Sell own car", "Log out"};
+
+                var options = AddOptions(optionsList);
+                MessageHelper.PrintOptions(options);
+                MessageHelper.Print(MessageHelper.MSG_INSERT_OPTION);
+                string selectedOption = MessageHelper.Read();
+
+                bool success = int.TryParse(selectedOption, out int optionIndex);
+                if (success)
+                {
+                    switch (optionIndex)
+                    {
+                        case 1:
+                            BuyCar();
+                            break;
+                        case 2:
+                            RentCar();
+                            break;
+                        case 3:
+                            CarService();
+                            break;
+                        case 4:
+                            BuildCustomCar();
+                            break;
+                        case 5:
+                            SellOwnCar();
+                            break;
+                        case 6:
+                            return;
+                        default:
+                            MessageHelper.Print(MessageHelper.MSG_INVALID_OPTION);
+                            break;
+                    }
+                }
+                else
+                {
+                    MessageHelper.Print(MessageHelper.MSG_INVALID_OPTION);
+                }
+            }
+        }
+
+        private void BuyCar()
+        {
+            while (true)
+            {
+                MessageHelper.Print(MessageHelper.MSG_CAR_LIST);
+                List<CarInventory> cars = mainMenu.GetAllCars();
+
+                List<string> optionsList = cars.Select(car => car.ToString()).ToList();
+
+                var options = AddOptions(optionsList);
+                MessageHelper.PrintOptions(options);
+                MessageHelper.Print(MessageHelper.MSG_INSERT_OPTION);
+                
+                string selectedOption = MessageHelper.Read();
+                bool success = int.TryParse(selectedOption, out int optionIndex);
+                if (success && optionIndex >= 1 && optionIndex <= cars.Count)
+                {
+                    CarInventory selectedCar = cars[optionIndex - 1];
+                    ShowCarDetails(selectedCar);
+                }
+                else
+                {
+                    MessageHelper.Print(MessageHelper.MSG_INVALID_OPTION);
+                }
+            }
+        }
+
+        private void ShowCarDetails(CarInventory car)
+        {
+            MessageHelper.Print(MessageHelper.MSG_CAR_DETAILS);
+            MessageHelper.Print(car.GetAllDetails());
+
+            List<string> optionsList = new List<string>() { "Buy this car", "Negociate price", "Change color and buy", "Back to main menu"};
+            var options = AddOptions(optionsList);
+            MessageHelper.PrintOptions(options);
+            MessageHelper.Print(MessageHelper.MSG_INSERT_OPTION);
+
+            string selectedOption = MessageHelper.Read();
+            bool success = int.TryParse(selectedOption, out int optionIndex);
             if(success)
             {
-                Console.WriteLine("registered " + client.Username);
-                loggedClient = client;
-                Console.WriteLine("new id: " + loggedClient.Id);
+                switch (optionIndex)
+                {
+                    case 1:
+                        float balance = mainMenu.CheckClientBalance(loggedClient);
+                        if(balance >= car.FinalPrice)
+                        {
+                            bool transactionSucces = mainMenu.UpdateClientBalance(loggedClient, balance - car.FinalPrice);
+                            if(transactionSucces)
+                            {
+                                // delete car from inventory
+                                // write to reports
+                                MessageHelper.Print(MessageHelper.MSG_CAR_TRANSACTION_SUCCESS, car.ToString());
+                            }
+                            else
+                            {
+                                MessageHelper.Print(MessageHelper.MSG_CAR_TRANSACTION_FAIL);
+                            }
+                        }
+                        else
+                        {
+                            MessageHelper.Print(MessageHelper.MSG_NOT_ENOUGH_MONEY);
+                        }
+                        return;
+
+                    case 2:
+                        float discountedPrice = car.FinalPrice - DISCOUNT;
+                        MessageHelper.Print(MessageHelper.MSG_NEGOCIATE, discountedPrice);
+                        string choice = MessageHelper.GetUserInput(MessageHelper.MSG_YES_NO_CHOICE);
+
+                        switch (choice)
+                        {
+                            case "Y":
+                                balance = mainMenu.CheckClientBalance(loggedClient);
+                                if (balance >= discountedPrice)
+                                {
+                                    bool transactionSucces = mainMenu.UpdateClientBalance(loggedClient, balance - discountedPrice);
+                                    if (transactionSucces)
+                                    {
+                                        // delete car from inventory
+                                        // write to reports
+                                        MessageHelper.Print(MessageHelper.MSG_CAR_TRANSACTION_SUCCESS, car.ToString());
+                                    }
+                                    else
+                                    {
+                                        MessageHelper.Print(MessageHelper.MSG_CAR_TRANSACTION_FAIL);
+                                    }
+                                }
+                                else
+                                {
+                                    MessageHelper.Print(MessageHelper.MSG_NOT_ENOUGH_MONEY);
+                                }
+                                return;
+
+                            case "N":
+                                MessageHelper.Print(MessageHelper.MSG_REFUSE_DISCOUNT);
+                                return;
+                        }
+                        break;
+
+                    case 3:
+                        MessageHelper.Print(MessageHelper.MSG_COLOR_LIST);
+                        List<Color> colors = mainMenu.GetAllColors();
+                        optionsList = colors.Select(color => color.ColorName).ToList();
+                        options = AddOptions(optionsList);
+
+                        MessageHelper.PrintOptions(options);
+                        MessageHelper.Print(MessageHelper.MSG_INSERT_OPTION);
+
+                        selectedOption = MessageHelper.Read();
+                        success = int.TryParse(selectedOption, out optionIndex);
+
+                        if(success && optionIndex >= 0 && optionIndex <= colors.Count)
+                        {
+                            // clone car
+                            //float balance = mainMenu.CheckClientBalance(loggedClient);
+                            //if (balance >= car.FinalPrice)
+                            //{
+                            //    bool transactionSucces = mainMenu.UpdateClientBalance(loggedClient, balance - car.FinalPrice);
+                            //    if (transactionSucces)
+                            //    {
+                            //        // delete car from inventory
+                            //        // write to reports
+                            //        MessageHelper.Print(MessageHelper.MSG_CAR_TRANSACTION_SUCCESS, car.ToString());
+                            //    }
+                            //    else
+                            //    {
+                            //        MessageHelper.Print(MessageHelper.MSG_CAR_TRANSACTION_FAIL);
+                            //    }
+                            //}
+                            //else
+                            //{
+                            //    MessageHelper.Print(MessageHelper.MSG_NOT_ENOUGH_MONEY);
+                            //}
+                            return;
+                        }
+                        else
+                        {
+                            MessageHelper.Print(MessageHelper.MSG_INVALID_OPTION);
+                        }
+                        break;
+
+                    case 4:
+                        return;
+                }
             }
-            else
-            {
-                Console.WriteLine("fail register");
-            }
+        }
+
+        private void RentCar()
+        {
+
+        }
+
+        private void CarService()
+        {
+
+        }
+
+        private void BuildCustomCar()
+        {
+
+        }
+
+        private void SellOwnCar()
+        {
+
         }
     }
 }
