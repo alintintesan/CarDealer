@@ -11,7 +11,7 @@ namespace CarDealer.CarManufacturing
     class CarBuilderDirector
     {
         private ICarBuilder builder;
-        CarBuilderDirector(ICarBuilder builder)
+        public CarBuilderDirector(ICarBuilder builder)
         {
             this.builder = builder;
         }

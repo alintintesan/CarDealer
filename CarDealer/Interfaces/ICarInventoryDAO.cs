@@ -12,5 +12,6 @@ namespace CarDealer.Interfaces
         List<CarInventory> GetAllCars();
         void TestDrive(int id, int distance);
         List<CarInventory> GetCarsForRent();
+        List<CarInventory> GetDiscountedCars();
     }
 }

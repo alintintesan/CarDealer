@@ -20,5 +20,9 @@ namespace CarDealer.Interfaces
         List<Operation> GetAllOperation();
         List<Brand> GetAllBrands();
         List<Model> GetBrandModels(Brand brand);
+        List<Engine> GetEnginesForModel(Model model);
+        List<Employee> GetEmployeesByPosition(string position);
+        List<CarInventory> GetDiscountedCars();
+        List<Deal> GetDeals();
     }
 }

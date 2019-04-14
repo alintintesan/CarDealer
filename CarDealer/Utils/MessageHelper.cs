@@ -44,7 +44,7 @@ namespace CarDealer.Utils
         public static readonly string MSG_CAR_TRANSACTION_SUCCESS_RENT = "Payment of {0} completed successfully!" + Environment.NewLine +
             "The rent period is {1} days for this {2}!" + Environment.NewLine + "Enjoy the car and bring it back in one piece!";
         public static readonly string MSG_CAR_TRANSACTION_FAIL = "Transaction failed, please try again later.";
-        public static readonly string MSG_NOT_ENOUGH_MONEY = "You don't have enough money on your credit card!";
+        public static readonly string MSG_NOT_ENOUGH_MONEY = $"You don't have enough money on your credit card!{Environment.NewLine}";
         public static readonly string MSG_NEGOCIATE = "The best I can do is {0} for this car. Do we have a deal?";
         public static readonly string MSG_REFUSE_DISCOUNT = "All right, maybe you can find another car that suits your needs better!";
         public static readonly string MSG_TEST_DRIVING = "You can test the car for {0} km on our track!";
@@ -54,6 +54,19 @@ namespace CarDealer.Utils
 
         public static readonly string MSG_SERVICE_WELCOME = "It seems like you have a problem with your car, don't worry, we'll fix it for you! Please choose what you want us to fix!";
         public static readonly string MSG_SERVICE_SUCCESS = $"{Environment.NewLine}All done! Your problem is fixed now!";
+
+        public static readonly string MSG_BUILD_CUSTOM = $"{Environment.NewLine}You can also build you own custom car!";
+        public static readonly string MSG_BUILD_CUSTOM_BRAND = "Choose a brand:";
+        public static readonly string MSG_BUILD_CUSTOM_MODEL = "Choose a model:";
+        public static readonly string MSG_BUILD_CUSTOM_ENGINE = "Choose an engine:";
+        public static readonly string MSG_BUILD_CUSTOM_COLOR = "Choose a color:";
+        public static readonly string MSG_BUILD_CUSTOM_OPTIONS = "Choose an options level:";
+        public static readonly string MSG_BUILD_CUSTOM_CHOOSE_OPTIONS = "Here are the levels with the available options:";
+        public static readonly string MSG_BUILD_CUSTOM_FINAL_CAR = "Here's your final car:" + Environment.NewLine + "{0}";
+        public static readonly string MSG_BUILD_CUSTOM_PAYMENT = "Please confirm payment of {0}";
+
+        public static readonly string MSG_DEAL = Environment.NewLine + "Today's deal: {0} at the price of {1}. Check out car buying menu for more details!"
+            + Environment.NewLine;
 
         /// <summary>
         /// Prints a string to the console

@@ -30,7 +30,7 @@ namespace CarDealer.Models
 
         public override string ToString()
         {
-            return $"Option: {carOption}{Environment.NewLine}Price: {price} Level: {level}";
+            return $"Option: {carOption} | Price: {price} | Level: {level}";
         }
     }
 }

@@ -87,6 +87,50 @@ namespace CarDealer.DAO
             return carsForRent;
         }
 
+        public List<CarInventory> GetDiscountedCars()
+        {
+            List<CarInventory> allCars = GetAllCars();
+            List<Deal> deals = new List<Deal>();
+
+            using (SqlConnection connection = DatabaseHelper.Instance.GetConnection())
+            {
+                connection.Open();
+                string sql = "select * from Deals";
+                SqlCommand command = new SqlCommand(sql, connection);
+
+                SqlDataReader reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    int id = (int)reader["id"];
+                    int carId = (int)reader["carId"];
+                    float discountedPrice = float.Parse(reader["discountedPrice"].ToString());
+
+                    CarInventory car = new CarInventory();
+                    car.Id = carId;
+                    Deal deal = new Deal(id, car, discountedPrice);
+
+                    deals.Add(deal);
+                }
+                reader.Close();
+            }
+
+            List<CarInventory> discountedCars = new List<CarInventory>();
+            foreach(Deal d in deals)
+            {
+                foreach(CarInventory c in allCars)
+                {
+                    if (d.Car.Id == c.Id)
+                    {
+                        CarInventory car = c;
+                        car.FinalPrice = d.DiscountedPrice;
+                        discountedCars.Add(car);
+                    }
+                }
+            }
+            return discountedCars;
+        }
+
         public void TestDrive(int id, int distance)
         {
             using (SqlConnection connection = DatabaseHelper.Instance.GetConnection())

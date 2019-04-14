@@ -53,6 +53,7 @@
     <Compile Include="DAO\CarInventoryDAO.cs" />
     <Compile Include="DAO\ClientDAO.cs" />
     <Compile Include="DAO\ColorDAO.cs" />
+    <Compile Include="DAO\DealDAO.cs" />
     <Compile Include="DAO\EmployeeDAO.cs" />
     <Compile Include="DAO\EngineDAO.cs" />
     <Compile Include="DAO\ModelDAO.cs" />
@@ -66,6 +67,7 @@
     <Compile Include="Interfaces\ICarPrototype.cs" />
     <Compile Include="Interfaces\IClient.cs" />
     <Compile Include="Interfaces\IColorDAO.cs" />
+    <Compile Include="Interfaces\IDealDAO.cs" />
     <Compile Include="Interfaces\IDecoratedCar.cs" />
     <Compile Include="Interfaces\IEngineDAO.cs" />
     <Compile Include="Interfaces\IModelDAO.cs" />

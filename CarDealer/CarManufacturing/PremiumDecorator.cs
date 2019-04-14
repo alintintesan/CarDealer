@@ -18,10 +18,11 @@ namespace CarDealer.CarManufacturing
         public override void SetOptionsLevel()
         {
             IOptionDAO dao = new OptionDAO();
-            float entryCost = dao.GetPremiumCost();
-            List<Option> entryOptions = dao.GetLuxuryOptions();
-            decoratedCar.FinalPrice += entryCost;
-            decoratedCar.Options = entryOptions;
+            float cost = dao.GetPremiumCost();
+            List<Option> options = dao.GetPremiumOptions();
+            decoratedCar.FinalPrice = decoratedCar.InitialPrice;
+            decoratedCar.FinalPrice += cost;
+            decoratedCar.Options = options;
         }
     }
 }

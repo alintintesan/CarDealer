@@ -28,7 +28,7 @@ namespace CarDealer.Models
             this.position = position;
         }
 
-        protected override void GreetClient()
+        public override void GreetClient()
         {
             MessageHelper.Print(MessageHelper.MSG_EMPLOYEE_GREETING, FirstName, LastName, Position);
         }

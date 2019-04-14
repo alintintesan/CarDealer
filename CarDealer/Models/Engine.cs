@@ -30,7 +30,7 @@ namespace CarDealer.Models
 
         public override string ToString()
         {
-            return $"Engine type: {fuelType} Power (hp): {power} Capacity (cc): {capacity}";
+            return $"Type: {fuelType} | Power (hp): {power} | Capacity (cc): {capacity}";
         }
     }
 }

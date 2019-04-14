@@ -9,11 +9,11 @@ namespace CarDealer.Interfaces
 {
     abstract class AbstractEmployee
     {
-        private static int probability = 60;
+        private static int probability = 75;
 
         protected AbstractEmployee NextEmployee { get; set; }
 
-        protected bool isAvailable;
+        public bool isAvailable { get; set; }
 
         public AbstractEmployee()
         {
@@ -25,6 +25,6 @@ namespace CarDealer.Interfaces
             NextEmployee = employee;
         }
 
-        protected abstract void GreetClient();
+        public abstract void GreetClient();
     }
 }

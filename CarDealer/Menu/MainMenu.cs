@@ -17,6 +17,9 @@ namespace CarDealer.Menu
         private IOperationsDAO operationsDAO;
         private IBrandDAO brandDAO;
         private IModelDAO modelDAO;
+        private IEngineDAO engineDAO;
+        private IEmployeeDAO employeeDAO;
+        private IDealDAO dealDAO;
 
         public MainMenu()
         {
@@ -26,6 +29,9 @@ namespace CarDealer.Menu
             operationsDAO = new OperationsDAO();
             brandDAO = new BrandDAO();
             modelDAO = new ModelDAO();
+            engineDAO = new EngineDAO();
+            employeeDAO = new EmployeeDAO();
+            dealDAO = new DealDAO();
         }
 
         public bool Authenticate(string username, string password, out Client client)
@@ -81,6 +87,26 @@ namespace CarDealer.Menu
         public List<Model> GetBrandModels(Brand brand)
         {
             return modelDAO.GetBrandModels(brand.Id);
+        }
+
+        public List<Engine> GetEnginesForModel(Model model)
+        {
+            return engineDAO.GetEnginesForModel(model.Id);
+        }
+
+        public List<Employee> GetEmployeesByPosition(string position)
+        {
+            return employeeDAO.GetEmployeesByPosition(position);
+        }
+
+        public List<CarInventory> GetDiscountedCars()
+        {
+            return carInventoryDAO.GetDiscountedCars();
+        }
+
+        public List<Deal> GetDeals()
+        {
+            return dealDAO.GetAllDeals();
         }
     }
 }

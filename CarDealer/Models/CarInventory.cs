@@ -56,14 +56,22 @@ namespace CarDealer.Models
 
         public string GetAllDetails()
         {
-            return $"{Model}{Environment.NewLine}{Color}{Environment.NewLine}{Engine}{Environment.NewLine}" +
-                $"Build date: {BuildDate} Mileage: {Mileage}{Environment.NewLine}Initial price: {InitialPrice} Final Price: {FinalPrice}" +
-                $"{Environment.NewLine}Options level: {OptionsLevel}{Environment.NewLine}Options: {Environment.NewLine}{GetOptionsAsString()}";
+            return $"Brand: {Model.CarBrand}{Environment.NewLine}" +
+                $"Model: {Model.CarModel}{Environment.NewLine}" +
+                $"Color: {Color.ColorName}{Environment.NewLine}" +
+                $"Engine: {Engine}{Environment.NewLine}" +
+                $"Build date: {BuildDate}{Environment.NewLine}" +
+                $"Mileage: {Mileage}{Environment.NewLine}" +
+                $"Initial price: {InitialPrice}{Environment.NewLine}" +
+                $"Final Price: {FinalPrice}{Environment.NewLine}" +
+                $"Options level: {OptionsLevel.ToString()}{Environment.NewLine}" +
+                $"Options: {Environment.NewLine}{GetOptionsAsString()}";
         }
 
         private string GetOptionsAsString()
         {
             StringBuilder builder = new StringBuilder();
+            builder.Append(Environment.NewLine);
             foreach(var option in Options)
             {
                 builder.Append(option.ToString()).Append(Environment.NewLine);

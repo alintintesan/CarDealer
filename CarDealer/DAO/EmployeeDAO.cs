@@ -12,11 +12,11 @@ namespace CarDealer.DAO
 {
     class EmployeeDAO : IEmployeeDAO
     {
-        public static readonly string SALES_REPREZENTATIVE = "Sales Representative";
+        public static readonly string SALES_REPRESENTATIVE = "Sales Representative";
         public static readonly string MECHANIC = "Mechanic";
         public static readonly string RENTAL_AGENT = "Rental Agent";
 
-        public List<Employee> getEmployeesByPosition(string position)
+        public List<Employee> GetEmployeesByPosition(string position)
         {
             List<Employee> employees = new List<Employee>();
 

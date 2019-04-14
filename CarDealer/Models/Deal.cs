@@ -13,24 +13,14 @@ namespace CarDealer.Models
 
         public int Id { get; set; }
         public CarInventory Car { get; set; }
+        public string CarBrand { get; set; }
+        public string CarModel { get; set; }
         public List<IClient> Clients { get; set; }
         private List<Deal> latestDeals { get; set; }
 
-        public float DiscountedPrice
-        {
-            get
-            {
-                return discountedPrice;
-            }
-            set
-            {
-                if (discountedPrice > value)
-                {
-                    discountedPrice = value;
-                    Notify();
-                }
-            }
-        }
+        public float DiscountedPrice { get; set; }
+
+        public Deal() { }
 
         public Deal(int id, CarInventory car, float discountPrice)
         {

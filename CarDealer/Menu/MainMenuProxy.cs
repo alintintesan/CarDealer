@@ -1,4 +1,7 @@
-﻿using CarDealer.Interfaces;
+﻿using CarDealer.CarManufacturing;
+using CarDealer.DAO;
+using CarDealer.Enums;
+using CarDealer.Interfaces;
 using CarDealer.Models;
 using CarDealer.Utils;
 using System;
@@ -130,7 +133,12 @@ namespace CarDealer.Menu
 
         private void OptionsMenu()
         {
-            // display deals
+            List<Deal> deals = mainMenu.GetDeals();
+            foreach(Deal deal in deals)
+            {
+                deal.Attach(loggedClient);
+                deal.Notify();
+            }
 
             while (true)
             {
@@ -339,6 +347,28 @@ namespace CarDealer.Menu
 
         private void RentCar()
         {
+            List<Employee> salesAgents = mainMenu.GetEmployeesByPosition(EmployeeDAO.RENTAL_AGENT);
+            List<AbstractEmployee> employees = new List<AbstractEmployee>();
+            RandomValueGenerator.Shuffle(employees);
+            foreach (var e in salesAgents)
+            {
+                AbstractEmployee abstractEmployee = e;
+                employees.Add(e);
+            }
+            for (int i = 0; i < employees.Count - 1; i++)
+            {
+                employees[i].SetNextEmployee(employees[i + 1]);
+            }
+
+            for (int i = 0; i < employees.Count; i++)
+            {
+                if (employees[i].isAvailable)
+                {
+                    employees[i].GreetClient();
+                    break;
+                }
+            }
+
             while (true)
             {
                 MessageHelper.Print(MessageHelper.MSG_CAR_LIST_RENTALS);
@@ -389,7 +419,7 @@ namespace CarDealer.Menu
                         string noOfDaysAsText = MessageHelper.GetUserInput(MessageHelper.MSG_RENTAL_NO_OF_DAYS);
                         bool isUserInputCorrect = int.TryParse(noOfDaysAsText, out int noOfDays);
 
-                        if(isUserInputCorrect)
+                        if (isUserInputCorrect)
                         {
                             float balance = mainMenu.CheckClientBalance(loggedClient);
                             float costPerDay = car.RentCostPerDay();
@@ -418,7 +448,7 @@ namespace CarDealer.Menu
                             MessageHelper.Print(MessageHelper.MSG_INVALID_DAYS);
                         }
                         break;
-                        
+
                     case 5:
                         OptionsMenu();
                         break;
@@ -428,6 +458,28 @@ namespace CarDealer.Menu
 
         private void CarService()
         {
+            List<Employee> salesAgents = mainMenu.GetEmployeesByPosition(EmployeeDAO.MECHANIC);
+            List<AbstractEmployee> employees = new List<AbstractEmployee>();
+            RandomValueGenerator.Shuffle(employees);
+            foreach (var e in salesAgents)
+            {
+                AbstractEmployee abstractEmployee = e;
+                employees.Add(e);
+            }
+            for (int i = 0; i < employees.Count - 1; i++)
+            {
+                employees[i].SetNextEmployee(employees[i + 1]);
+            }
+
+            for (int i = 0; i < employees.Count; i++)
+            {
+                if (employees[i].isAvailable)
+                {
+                    employees[i].GreetClient();
+                    break;
+                }
+            }
+
             MessageHelper.Print(MessageHelper.MSG_SERVICE_WELCOME);
             List<Operation> operations = mainMenu.GetAllOperation();
 
@@ -460,10 +512,205 @@ namespace CarDealer.Menu
 
         private void BuildCustomCar()
         {
-            MessageHelper.Print(MessageHelper.MSG_SERVICE_WELCOME);
-            List<Operation> operations = mainMenu.GetAllOperation();
+            List<Employee> salesAgents = mainMenu.GetEmployeesByPosition(EmployeeDAO.SALES_REPRESENTATIVE);
+            List<AbstractEmployee> employees = new List<AbstractEmployee>();
+            RandomValueGenerator.Shuffle(employees);
+            foreach (var e in salesAgents)
+            {
+                AbstractEmployee abstractEmployee = e;
+                employees.Add(e);
+            }
+            for (int i = 0; i < employees.Count - 1; i++)
+            {
+                employees[i].SetNextEmployee(employees[i + 1]);
+            }
+            
+            for (int i = 0; i < employees.Count; i++)
+            {
+                if(employees[i].isAvailable)
+                {
+                    employees[i].GreetClient();
+                    break;
+                }
+            }
 
+            MessageHelper.Print(MessageHelper.MSG_BUILD_CUSTOM);
+            List<Brand> brands = mainMenu.GetAllBrands();
+            List<string> optionsList = brands.Select(b => b.CarBrand).ToList();
+            var options = AddOptions(optionsList);
+            MessageHelper.PrintOptions(options);
+            MessageHelper.Print(MessageHelper.MSG_INSERT_OPTION);
+            
+            Brand brand;
+            Model model;
+            Color color;
+            Engine engine;
+            EOptionsLevel optionsLevel;
 
+            // Brand selection
+            while (true)
+            {
+                string selectedOptionAsText = MessageHelper.Read();
+                bool isInputValid = int.TryParse(selectedOptionAsText, out int optionsIndex);
+                if (isInputValid && optionsIndex >= 0 && optionsIndex <= options.Count)
+                {
+                    brand = brands[optionsIndex - 1];
+                    break;
+                }
+                else
+                {
+                    MessageHelper.Print(MessageHelper.MSG_INVALID_OPTION);
+                    return;
+                }
+            }
+
+            // Model selection
+            while (true)
+            {
+                List<Model> models = mainMenu.GetBrandModels(brand);
+                optionsList = models.Select(m => m.CarModel).ToList();
+                options = AddOptions(optionsList);
+                MessageHelper.PrintOptions(options);
+                MessageHelper.Print(MessageHelper.MSG_INSERT_OPTION);
+
+                string selectedOptionAsText = MessageHelper.Read();
+                bool isInputValid = int.TryParse(selectedOptionAsText, out int optionsIndex);
+                if (isInputValid)
+                {
+                    model = models[optionsIndex - 1];
+                    break;
+                }
+                else
+                {
+                    MessageHelper.Print(MessageHelper.MSG_INVALID_OPTION);
+                    return;
+                }
+            }
+
+            // Engine selection
+            while (true)
+            {
+                List<Engine> engines = mainMenu.GetEnginesForModel(model);
+                optionsList = engines.Select(e => e.ToString()).ToList();
+                options = AddOptions(optionsList);
+                MessageHelper.PrintOptions(options);
+                MessageHelper.Print(MessageHelper.MSG_INSERT_OPTION);
+
+                string selectedOptionAsText = MessageHelper.Read();
+                bool isInputValid = int.TryParse(selectedOptionAsText, out int optionsIndex);
+                if (isInputValid && optionsIndex >= 0 && optionsIndex <= options.Count)
+                {
+                    engine = engines[optionsIndex - 1];
+                    break;
+                }
+                else
+                {
+                    MessageHelper.Print(MessageHelper.MSG_INVALID_OPTION);
+                    return;
+                }
+            }
+
+            // Color selection
+            while (true)
+            {
+                List<Color> colors = mainMenu.GetAllColors();
+                optionsList = colors.Select(c => c.ColorName).ToList();
+                options = AddOptions(optionsList);
+                MessageHelper.PrintOptions(options);
+                MessageHelper.Print(MessageHelper.MSG_INSERT_OPTION);
+
+                string selectedOptionAsText = MessageHelper.Read();
+                bool isInputValid = int.TryParse(selectedOptionAsText, out int optionsIndex);
+                if (isInputValid && optionsIndex >= 0 && optionsIndex <= options.Count)
+                {
+                    color = colors[optionsIndex - 1];
+                    break;
+                }
+                else
+                {
+                    MessageHelper.Print(MessageHelper.MSG_INVALID_OPTION);
+                    return;
+                }
+            }
+
+            // Options selection
+            while (true)
+            {
+                List<EOptionsLevel> levels = Enum.GetValues(typeof(EOptionsLevel)).Cast<EOptionsLevel>().ToList();
+                optionsList = levels.Select(l => l.ToString()).ToList();
+                options = AddOptions(optionsList);
+                MessageHelper.PrintOptions(options);
+                MessageHelper.Print(MessageHelper.MSG_INSERT_OPTION);
+
+                string selectedOptionAsText = MessageHelper.Read();
+                bool isInputValid = int.TryParse(selectedOptionAsText, out int optionsIndex);
+                if (isInputValid && optionsIndex >= 0 && optionsIndex <= options.Count)
+                {
+                    optionsLevel = levels[optionsIndex - 1];
+                    break;
+                }
+                else
+                {
+                    MessageHelper.Print(MessageHelper.MSG_INVALID_OPTION);
+                    return;
+                }
+            }
+
+            CarBuilderDirector director = new CarBuilderDirector(new CarBuilder());
+            director.Construct(model, color, engine);
+
+            IDecoratedCar car = director.GetBuiltCar();
+            car.InitialPrice = model.BasePrice;
+            car.Mileage = 0;
+            car.BuildDate = DateTime.Now;
+
+            CarDecorator decorator;
+            switch(optionsLevel)
+            {
+                case EOptionsLevel.Basic:
+                    car.SetOptionsLevel();
+                    break;
+                case EOptionsLevel.Entry:
+                    decorator = new EntryDecorator(car);
+                    break;
+                case EOptionsLevel.Premium:
+                    decorator = new PremiumDecorator(car);
+                    break;
+                case EOptionsLevel.Luxury:
+                    decorator = new PremiumDecorator(car);
+                    break;
+            }
+
+            MessageHelper.Print(MessageHelper.MSG_BUILD_CUSTOM_FINAL_CAR, ((CarInventory)car).GetAllDetails());
+            MessageHelper.Print(MessageHelper.MSG_BUILD_CUSTOM_PAYMENT, car.FinalPrice);
+            string choice = MessageHelper.GetUserInput(MessageHelper.MSG_YES_NO_CHOICE);
+
+            switch (choice)
+            {
+                case "Y":
+                    float balance = mainMenu.CheckClientBalance(loggedClient);
+                    if (balance >= car.FinalPrice)
+                    {
+                        bool transactionSucces = mainMenu.UpdateClientBalance(loggedClient, car.FinalPrice);
+                        if (transactionSucces)
+                        {
+                            MessageHelper.Print(MessageHelper.MSG_CAR_TRANSACTION_SUCCESS, car.ToString());
+                        }
+                        else
+                        {
+                            MessageHelper.Print(MessageHelper.MSG_CAR_TRANSACTION_FAIL);
+                        }
+                    }
+                    else
+                    {
+                        MessageHelper.Print(MessageHelper.MSG_NOT_ENOUGH_MONEY);
+                    }
+                    return;
+
+                case "N":
+                    MessageHelper.Print(MessageHelper.MSG_CAR_TRANSACTION_FAIL);
+                    return;
+            }
         }
 
         private void SellOwnCar()

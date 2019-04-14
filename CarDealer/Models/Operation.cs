@@ -25,7 +25,7 @@ namespace CarDealer.Models
 
         public override string ToString()
         {
-            return $"Operation: {operationName} Cost: {cost}";
+            return $"{operationName} (Cost: {cost})";
         }
     }
 }

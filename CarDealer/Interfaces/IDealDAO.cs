@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace CarDealer.Interfaces
 {
-    interface IEmployeeDAO
+    interface IDealDAO
     {
-        List<Employee> GetEmployeesByPosition(string position);
+        List<Deal> GetAllDeals();
     }
 }

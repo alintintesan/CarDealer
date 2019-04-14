@@ -1,4 +1,5 @@
 ﻿using CarDealer.Interfaces;
+using CarDealer.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,7 +38,7 @@ namespace CarDealer.Models
 
         public void Update(Deal deal)
         {
-            Console.WriteLine("[NEW CAR DEALS] The car |{0}, {1}| is now at the new price of ${2}, discounted from ${3}.", deal.Car.Model.CarBrand, deal.Car.Model.CarModel, deal.DiscountedPrice, deal.Car.InitialPrice);
+            MessageHelper.Print(MessageHelper.MSG_DEAL, $"{deal.CarBrand} {deal.CarModel.Trim()}", deal.DiscountedPrice);
         }
 
         public override string ToString()

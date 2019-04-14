@@ -101,7 +101,7 @@ namespace CarDealer.DAO
                 {
                     int optionId = (int)reader["id"];
                     string option = (string)reader["option"];
-                    float price = (float)reader["price"];
+                    float price = float.Parse(reader["price"].ToString());
 
                     Option optionObj = new Option(optionId, option, price, EOptionsLevel.Premium);
 
@@ -119,7 +119,7 @@ namespace CarDealer.DAO
 
             using (SqlConnection connection = DatabaseHelper.Instance.GetConnection())
             {
-                string sql = "select id, [option], price from Options where level = 'Entry'";
+                string sql = "select id, [option], price from Options where level = 'Luxury'";
                 SqlCommand command = new SqlCommand(sql, connection);
                 connection.Open();
 
@@ -154,7 +154,7 @@ namespace CarDealer.DAO
 
                 while (reader.Read())
                 {
-                    price = float.Parse(reader["price"].ToString());
+                    price += float.Parse(reader["price"].ToString());
                 }
 
                 reader.Close();
@@ -176,7 +176,7 @@ namespace CarDealer.DAO
 
                 while (reader.Read())
                 {
-                    price = float.Parse(reader["price"].ToString());
+                    price += float.Parse(reader["price"].ToString());
                 }
 
                 reader.Close();
@@ -198,7 +198,7 @@ namespace CarDealer.DAO
 
                 while (reader.Read())
                 {
-                    price = float.Parse(reader["price"].ToString());
+                    price += float.Parse(reader["price"].ToString());
                 }
 
                 reader.Close();
