@@ -55,6 +55,7 @@
     <Compile Include="DAO\OptionDAO.cs" />
     <Compile Include="Enums\EFuelType.cs" />
     <Compile Include="Enums\EOptionsLevel.cs" />
+    <Compile Include="Interfaces\AbstractEmployee.cs" />
     <Compile Include="Interfaces\ICarBuilder.cs" />
     <Compile Include="Interfaces\ICarPrototype.cs" />
     <Compile Include="Interfaces\IClient.cs" />

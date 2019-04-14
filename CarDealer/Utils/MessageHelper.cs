@@ -24,6 +24,8 @@ namespace CarDealer.Utils
         
         public static readonly string MSG_OPTION = "{0}) {1}{2}";
         public static readonly string MSG_AUTH = "{0}) {1}{2}";
+        public static readonly string MSG_EMPLOYEE_GREETING = "Hi, my name is {0} {1} and I'm your {2} today! How can I help you?";
+
 
 
         /// <summary>

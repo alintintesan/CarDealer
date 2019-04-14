@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CarDealer.Interfaces;
+using CarDealer.Utils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CarDealer.Models
 {
-    class Employee
+    class Employee : AbstractEmployee
     {
         private int id;
         private string firstName;
@@ -24,6 +26,16 @@ namespace CarDealer.Models
             this.firstName = firstName;
             this.lastName = lastName;
             this.position = position;
+        }
+
+        public Employee() : base()
+        {
+
+        }
+
+        protected override void GreetClient()
+        {
+            MessageHelper.Print(MessageHelper.MSG_EMPLOYEE_GREETING, FirstName, LastName, Position);
         }
 
         public override string ToString()
