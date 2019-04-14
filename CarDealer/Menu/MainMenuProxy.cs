@@ -441,8 +441,16 @@ namespace CarDealer.Menu
             bool success = int.TryParse(selectedOption, out int optionIndex);
             if (success && optionIndex >= 1 && optionIndex <= operations.Count)
             {
-
                 Operation operation = operations[optionIndex - 1];
+                if (loggedClient.Balance >= operation.Cost)
+                {
+                    MessageHelper.Print(MessageHelper.MSG_SERVICE_SUCCESS);
+                    loggedClient.Balance -= operation.Cost;
+                }
+                else
+                {
+                    MessageHelper.Print(MessageHelper.MSG_NOT_ENOUGH_MONEY);
+                }
             }
             else
             {
@@ -452,7 +460,10 @@ namespace CarDealer.Menu
 
         private void BuildCustomCar()
         {
-            // TO DO AND DOOONE
+            MessageHelper.Print(MessageHelper.MSG_SERVICE_WELCOME);
+            List<Operation> operations = mainMenu.GetAllOperation();
+
+
         }
 
         private void SellOwnCar()
