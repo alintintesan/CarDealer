@@ -1,5 +1,6 @@
 ﻿using CarDealer.Enums;
 using CarDealer.Interfaces;
+using CarDealer.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace CarDealer.Models
 {
-    class CarInventory : IDecoratedCar
+    [Serializable] class CarInventory : IDecoratedCar, ICarPrototype
     {
         public int Id { get; set; }
         public Model Model { get; set; }
@@ -70,7 +71,7 @@ namespace CarDealer.Models
         public CarInventory Clone()
         {
             CarInventory carInventory = (CarInventory)this.MemberwiseClone();
-            return carInventory;
+            return (CarInventory)ObjectHelper.DeepCopy<CarInventory>(this);
         }
     } 
 }

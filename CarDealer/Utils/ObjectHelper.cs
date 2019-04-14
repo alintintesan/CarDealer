@@ -10,7 +10,7 @@ namespace CarDealer.Utils
 {
     class ObjectHelper
     {
-        public static T DeepCopy<T>(Task obj)
+        public static T DeepCopy<T>(T obj)
         {
             using (var ms = new MemoryStream())
             {
