@@ -56,7 +56,7 @@ namespace CarDealer.Menu
 
         public List<Operation> GetAllOperation()
         {
-            throw new NotImplementedException();
+            return operationsDAO.GetAllOperations();
         }
     }
 }
