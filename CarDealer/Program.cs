@@ -3,6 +3,7 @@ using CarDealer.Interfaces;
 using CarDealer.Menu;
 using CarDealer.Models;
 using CarDealer.Utils;
+using System;
 using System.Collections.Generic;
 
 namespace CarDealer
@@ -14,6 +15,7 @@ namespace CarDealer
             //test();
             MainMenuProxy menu = new MainMenuProxy(new MainMenu());
             menu.initiate();
+
         }
 
         static void test()
