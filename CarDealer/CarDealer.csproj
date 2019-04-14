@@ -92,6 +92,7 @@
     <Compile Include="Utils\DatabaseHelper.cs" />
     <Compile Include="Utils\MessageHelper.cs" />
     <Compile Include="Utils\ObjectHelper.cs" />
+    <Compile Include="Utils\RandomValueGenerator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

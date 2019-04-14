@@ -9,7 +9,7 @@ namespace CarDealer.Interfaces
 {
     abstract class AbstractEmployee
     {
-        private static double probability = 60;
+        private static int probability = 60;
 
         protected AbstractEmployee NextEmployee { get; set; }
 
