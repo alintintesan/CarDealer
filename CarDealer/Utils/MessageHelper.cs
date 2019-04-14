@@ -23,6 +23,9 @@ namespace CarDealer.Utils
 
         public static readonly string MSG_INSERT_OPTION = "Please insert your option:";
         public static readonly string MSG_OPTION = "{0}) {1}{2}";
+        public static readonly string MSG_AUTH = "{0}) {1}{2}";
+        public static readonly string MSG_EMPLOYEE_GREETING = "Hi, my name is {0} {1} and I'm your {2} today! How can I help you?";
+
         public static readonly string MSG_USERNAME = "Please enter your username:";
         public static readonly string MSG_PASSWORD = "Please enter your password:";
         public static readonly string MSG_AUTH_FAILED = "Wrong credentials. Please try again!";
