@@ -75,7 +75,6 @@ namespace CarDealer.Models
 
         public CarInventory Clone()
         {
-            CarInventory carInventory = (CarInventory)this.MemberwiseClone();
             return (CarInventory)ObjectHelper.DeepCopy<CarInventory>(this);
         }
     } 

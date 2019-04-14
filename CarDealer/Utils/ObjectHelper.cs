@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.IO;
 
 namespace CarDealer.Utils
 {
@@ -12,14 +12,16 @@ namespace CarDealer.Utils
     {
         public static T DeepCopy<T>(T obj)
         {
-            using (var ms = new MemoryStream())
+            object result = null;
+            using (MemoryStream stream = new MemoryStream())
             {
                 var formatter = new BinaryFormatter();
-                formatter.Serialize(ms, obj);
-                ms.Position = 0;
-
-                return (T)formatter.Deserialize(ms);
+                formatter.Serialize(stream, obj);
+                stream.Position = 0;
+                result = formatter.Deserialize(stream);
+                stream.Close();
             }
+            return (T)result;
         }
     }
 }

@@ -316,7 +316,8 @@ namespace CarDealer.Menu
                         break;
 
                     case 4:
-                        return;
+                        OptionsMenu();
+                        break;
                 }
             }
         }
