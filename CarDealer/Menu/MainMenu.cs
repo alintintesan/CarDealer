@@ -15,6 +15,8 @@ namespace CarDealer.Menu
         private ICarInventoryDAO carInventoryDAO;
         private IColorDAO colorDAO;
         private IOperationsDAO operationsDAO;
+        private IBrandDAO brandDAO;
+        private IModelDAO modelDAO;
 
         public MainMenu()
         {
@@ -22,6 +24,8 @@ namespace CarDealer.Menu
             carInventoryDAO = new CarInventoryDAO();
             colorDAO = new ColorDAO();
             operationsDAO = new OperationsDAO();
+            brandDAO = new BrandDAO();
+            modelDAO = new ModelDAO();
         }
 
         public bool Authenticate(string username, string password, out Client client)
@@ -67,6 +71,16 @@ namespace CarDealer.Menu
         public List<Operation> GetAllOperation()
         {
             return operationsDAO.GetAllOperations();
+        }
+
+        public List<Brand> GetAllBrands()
+        {
+            return brandDAO.GetAllBrands();
+        }
+
+        public List<Model> GetBrandModels(Brand brand)
+        {
+            return modelDAO.GetBrandModels(brand.Id);
         }
     }
 }

@@ -49,6 +49,7 @@
     <Compile Include="CarManufacturing\EntryDecorator.cs" />
     <Compile Include="CarManufacturing\LuxuryDecorator.cs" />
     <Compile Include="CarManufacturing\PremiumDecorator.cs" />
+    <Compile Include="DAO\BrandDAO.cs" />
     <Compile Include="DAO\CarInventoryDAO.cs" />
     <Compile Include="DAO\ClientDAO.cs" />
     <Compile Include="DAO\ColorDAO.cs" />
@@ -59,6 +60,7 @@
     <Compile Include="DAO\OptionDAO.cs" />
     <Compile Include="Enums\EOptionsLevel.cs" />
     <Compile Include="Interfaces\AbstractEmployee.cs" />
+    <Compile Include="Interfaces\IBrandDAO.cs" />
     <Compile Include="Interfaces\ICarBuilder.cs" />
     <Compile Include="Interfaces\ICarInventoryDAO.cs" />
     <Compile Include="Interfaces\ICarPrototype.cs" />
