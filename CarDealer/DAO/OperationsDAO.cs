@@ -12,6 +12,8 @@ namespace CarDealer.DAO
 {
     class OperationsDAO : IOperationsDAO
     {
+        private readonly float cost;
+
         public List<Operation> GetAllOperations()
         {
             List<Operation> operations = new List<Operation>();
