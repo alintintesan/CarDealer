@@ -511,7 +511,7 @@ namespace CarDealer.Menu
                 double priceByYears = basePrice - (((yearDiff * 2.0) / 100.0) * basePrice);
 
                 // se scade procentajul dat de kilometrajul actual al masinii raportat la 25000 km
-                double priceByMileage = basePrice - (((insertedMileage / MILEAGE_LIMIT) / 100.0) * basePrice); 
+                double priceByMileage = basePrice - ((((double)insertedMileage / MILEAGE_LIMIT) / 100.0) * basePrice); 
 
                 double finalPrice = (priceByYears + priceByMileage) / 2.0;
 
