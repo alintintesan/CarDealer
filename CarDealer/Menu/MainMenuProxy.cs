@@ -19,6 +19,7 @@ namespace CarDealer.Menu
         private static float DEFAULT_BALANCE = 500000;
         private static float DISCOUNT = 200;
         private static int TEST_DRIVE_DISTANCE = 1;
+        private static int MILEAGE_LIMIT = 25000;
 
         public Client LoggedClient { get => loggedClient; set => loggedClient = value; }
 
@@ -468,7 +469,51 @@ namespace CarDealer.Menu
 
         private void SellOwnCar()
         {
+            List<Brand> availableBrands = new List<Brand>();
+            List<Model> availableModels = new List<Model>();
 
+            MessageHelper.Print(MessageHelper.MSG_CAR_BRAND);
+            availableBrands = mainMenu.GetAllBrands();
+            MessageHelper.PrintList<Brand>(availableBrands);
+
+            MessageHelper.Print(MessageHelper.MSG_INSERT_OPTION);
+            string selectedOption = MessageHelper.Read();
+            bool success = int.TryParse(selectedOption, out int optionIndex1);
+            if (success && optionIndex1 >= 1 && optionIndex1 <= availableBrands.Count)
+            {
+                Brand selectedBrand = availableBrands[optionIndex1 - 1];
+                availableModels = mainMenu.GetBrandModels(selectedBrand);
+                MessageHelper.Print(MessageHelper.MSG_CAR_MODEL, selectedBrand.CarBrand);
+                MessageHelper.PrintList(availableModels);
+            }
+            else
+            {
+                MessageHelper.Print(MessageHelper.MSG_INVALID_OPTION);
+            }
+            
+            selectedOption = MessageHelper.Read();
+            success = int.TryParse(selectedOption, out int optionIndex2);
+            if (success && optionIndex2 >= 1 && optionIndex2 <= availableModels.Count)
+            {
+                Model selectedModel = availableModels[optionIndex2 - 1];
+                MessageHelper.Print(MessageHelper.MSG_CAR_SELL_DETAILS);
+                MessageHelper.Print(MessageHelper.MSG_CAR_MILEAGE);
+                int.TryParse(MessageHelper.Read(), out int insertedMileage);
+                MessageHelper.Print(MessageHelper.MSG_CAR_YEAR);
+                int.TryParse(MessageHelper.Read(), out int insertedFabricationYear);
+                float basePrice = mainMenu.GetModelBasePrice(selectedModel.Id);
+                int currentYear = DateTime.Today.Year;
+                int yearDiff = currentYear - insertedFabricationYear + 1;
+                // se scade procentajul dat de anii masinii * 2
+                float priceByYears = basePrice - (yearDiff * 2 / 100 * basePrice);
+
+                // se scade procentajul dat de kilometrajul actual al masinii raportat la 25000 km
+                float priceByMileage = basePrice - ((insertedMileage / MILEAGE_LIMIT) / 100 * basePrice); 
+
+                double finalPrice = (priceByYears * priceByMileage) / 2;
+
+                MessageHelper.Print(MessageHelper.MSG_CAR_EVALUATION, finalPrice);
+            }
         }
     }
 }

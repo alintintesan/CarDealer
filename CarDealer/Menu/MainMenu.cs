@@ -82,5 +82,11 @@ namespace CarDealer.Menu
         {
             return modelDAO.GetBrandModels(brand.Id);
         }
+
+        public float GetModelBasePrice(int id)
+        {
+            Model model = modelDAO.GetModel(id);
+            return model.BasePrice;
+        }
     }
 }

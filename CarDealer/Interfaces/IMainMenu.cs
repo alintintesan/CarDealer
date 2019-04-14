@@ -20,5 +20,6 @@ namespace CarDealer.Interfaces
         List<Operation> GetAllOperation();
         List<Brand> GetAllBrands();
         List<Model> GetBrandModels(Brand brand);
+        float GetModelBasePrice(int id);
     }
 }
