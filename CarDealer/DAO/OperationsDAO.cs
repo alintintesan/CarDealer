@@ -12,8 +12,6 @@ namespace CarDealer.DAO
 {
     class OperationsDAO : IOperationsDAO
     {
-        public float cost { get; private set; }
-
         public List<Operation> GetAllOperations()
         {
             List<Operation> operations = new List<Operation>();
@@ -30,7 +28,7 @@ namespace CarDealer.DAO
                 {
                     int operationId = (int)reader["id"];
                     string operation = (string)reader["operation"];
-                    float cost = (float)reader["cost"];
+                    float cost = float.Parse(reader["cost"].ToString());
 
                     Operation operationObj = new Operation(operationId, operation,cost);
                     operations.Add(operationObj);

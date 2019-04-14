@@ -55,6 +55,7 @@
     <Compile Include="DAO\EmployeeDAO.cs" />
     <Compile Include="DAO\EngineDAO.cs" />
     <Compile Include="DAO\ModelDAO.cs" />
+    <Compile Include="DAO\OperationsDAO.cs" />
     <Compile Include="DAO\OptionDAO.cs" />
     <Compile Include="Enums\EOptionsLevel.cs" />
     <Compile Include="Interfaces\AbstractEmployee.cs" />
@@ -66,6 +67,7 @@
     <Compile Include="Interfaces\IDecoratedCar.cs" />
     <Compile Include="Interfaces\IEngineDAO.cs" />
     <Compile Include="Interfaces\IModelDAO.cs" />
+    <Compile Include="Interfaces\IOperationsDAO.cs" />
     <Compile Include="Interfaces\IOptionDAO.cs" />
     <Compile Include="Interfaces\IClientDAO.cs" />
     <Compile Include="Interfaces\IEmployeeDAO.cs" />
