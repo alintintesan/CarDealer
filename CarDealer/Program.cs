@@ -15,7 +15,6 @@ namespace CarDealer
             //test();
             MainMenuProxy menu = new MainMenuProxy(new MainMenu());
             menu.Initialize();
-
         }
 
         static void test()
