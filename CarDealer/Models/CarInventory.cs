@@ -48,6 +48,11 @@ namespace CarDealer.Models
 
         public override string ToString()
         {
+            return $"{BuildDate.Year} {Model.CarBrand} {Model.CarModel}";
+        }
+
+        public string GetAllDetails()
+        {
             return $"{Model}{Environment.NewLine}{Color}{Environment.NewLine}{Engine}{Environment.NewLine}" +
                 $"Build date: {BuildDate} Mileage: {Mileage}{Environment.NewLine}Initial price: {InitialPrice} Final Price: {FinalPrice}" +
                 $"{Environment.NewLine}Options level: {OptionsLevel}{Environment.NewLine}Options: {Environment.NewLine}{GetOptionsAsString()}";
@@ -70,7 +75,6 @@ namespace CarDealer.Models
 
         public CarInventory Clone()
         {
-            CarInventory carInventory = (CarInventory)this.MemberwiseClone();
             return (CarInventory)ObjectHelper.DeepCopy<CarInventory>(this);
         }
     } 

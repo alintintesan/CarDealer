@@ -11,6 +11,7 @@ namespace CarDealer.Interfaces
     {
         bool Authenticate(string username, string password, out Client client);
         bool Register(Client client);
-        void UpdateBalance(int id);
+        bool UpdateBalance(int id, float newBalance);
+        float CheckBalance(int id);
     }
 }

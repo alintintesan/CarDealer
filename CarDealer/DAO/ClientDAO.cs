@@ -46,6 +46,29 @@ namespace CarDealer.DAO
             return isAuthenticated;
         }
 
+        public float CheckBalance(int id)
+        {
+            float balance = 0;
+
+            using (SqlConnection connection = DatabaseHelper.Instance.GetConnection())
+            {
+                connection.Open();
+                string sql = "select balance from Clients where Clients.id = @id";
+                SqlCommand command = new SqlCommand(sql, connection);
+                command.Parameters.AddWithValue("@id", id);
+
+                SqlDataReader reader = command.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    balance = float.Parse(reader["balance"].ToString());
+                }
+                reader.Close();
+            }
+
+            return balance;
+        }
+
         public bool Register(Client client)
         {
             bool success = false;
@@ -86,9 +109,21 @@ namespace CarDealer.DAO
             return success;
         }
 
-        public void UpdateBalance(int id)
+        public bool UpdateBalance(int id, float newBalance)
         {
-            throw new NotImplementedException();
+            int rowsAffected = 0;
+            using (SqlConnection connection = DatabaseHelper.Instance.GetConnection())
+            {
+                connection.Open();
+                string sql = "update Clients set balance = @balance where id = @id";
+                SqlCommand command = new SqlCommand(sql, connection);
+                command.Parameters.AddWithValue("@id", id);
+                command.Parameters.AddWithValue("@balance", newBalance);
+
+                rowsAffected = command.ExecuteNonQuery();
+            }
+
+            return rowsAffected > 0;
         }
     }
 }

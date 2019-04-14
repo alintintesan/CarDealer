@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 
 namespace CarDealer.Interfaces
 {
-    interface ICarPrototype
+    interface IColorDAO
     {
-        CarInventory Clone();
+        List<Color> GetAllColors();
+        Color GetColor(int id);
     }
 }

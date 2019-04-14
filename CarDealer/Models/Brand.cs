@@ -22,7 +22,7 @@ namespace CarDealer.Models
 
         public override string ToString()
         {
-            return $"Brand: {carBrand}";
+            return $"{carBrand}";
         }
     }
 }

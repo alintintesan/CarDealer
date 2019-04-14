@@ -11,5 +11,6 @@ namespace CarDealer.Interfaces
     {
         List<Model> GetAllModels();
         List<Model> GetBrandModels(int brandId);
+        Model GetModel(int id);
     }
 }

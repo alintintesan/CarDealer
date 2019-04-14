@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace CarDealer.Interfaces
 {
-    interface ICarPrototype
+    interface ICarInventoryDAO
     {
-        CarInventory Clone();
+        List<CarInventory> GetAllCars();
     }
 }

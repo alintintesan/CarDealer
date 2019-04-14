@@ -63,7 +63,7 @@ namespace CarDealer.DAO
 
             using (SqlConnection connection = DatabaseHelper.Instance.GetConnection())
             {
-                string sql = "select id, option, price from Options where level = 'Entry'";
+                string sql = "select id, [option], price from Options where level = 'Entry'";
                 SqlCommand command = new SqlCommand(sql, connection);
                 connection.Open();
 
@@ -91,7 +91,7 @@ namespace CarDealer.DAO
 
             using (SqlConnection connection = DatabaseHelper.Instance.GetConnection())
             {
-                string sql = "select id, option, price from Options where level = 'Premium'";
+                string sql = "select id, [option], price from Options where level = 'Premium'";
                 SqlCommand command = new SqlCommand(sql, connection);
                 connection.Open();
 
@@ -119,7 +119,7 @@ namespace CarDealer.DAO
 
             using (SqlConnection connection = DatabaseHelper.Instance.GetConnection())
             {
-                string sql = "select id, option, price from Options where level = 'Entry'";
+                string sql = "select id, [option], price from Options where level = 'Entry'";
                 SqlCommand command = new SqlCommand(sql, connection);
                 connection.Open();
 
@@ -199,6 +199,58 @@ namespace CarDealer.DAO
                 while (reader.Read())
                 {
                     price = float.Parse(reader["price"].ToString());
+                }
+
+                reader.Close();
+            }
+
+            return price;
+        }
+
+        public List<Option> GetLevelOptions(EOptionsLevel level)
+        {
+            List<Option> options = new List<Option>();
+
+            using (SqlConnection connection = DatabaseHelper.Instance.GetConnection())
+            {
+                string sql = "select id, [option], price from Options where level = '@level'";
+                SqlCommand command = new SqlCommand(sql, connection);
+                command.Parameters.AddWithValue("@level", level.ToString());
+                connection.Open();
+
+                SqlDataReader reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    int optionId = (int)reader["id"];
+                    string option = (string)reader["option"];
+                    float price = float.Parse(reader["price"].ToString());
+
+                    Option optionObj = new Option(optionId, option, price, level);
+
+                    options.Add(optionObj);
+                }
+                reader.Close();
+            }
+
+            return options;
+        }
+        
+        public float GetLevelCost(EOptionsLevel level)
+        {
+            float price = 0;
+            using (SqlConnection connection = DatabaseHelper.Instance.GetConnection())
+            {
+                string sql = "select price from Options where level = '@level'";
+                SqlCommand command = new SqlCommand(sql, connection);
+                command.Parameters.AddWithValue("@level", level.ToString());
+                connection.Open();
+
+                SqlDataReader reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    price += float.Parse(reader["price"].ToString());
                 }
 
                 reader.Close();

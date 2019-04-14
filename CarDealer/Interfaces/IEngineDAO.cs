@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 
 namespace CarDealer.Interfaces
 {
-    interface ICarPrototype
+    interface IEngineDAO
     {
-        CarInventory Clone();
+        List<Engine> GetEnginesForModel(int modelId);
+        Engine GetEngine(int id);
     }
 }

@@ -9,7 +9,11 @@ namespace CarDealer.Interfaces
 {
     interface IMainMenu
     {
-        bool authenticate(string username, string password, out Client client);
-        bool register(Client client);
+        bool Authenticate(string username, string password, out Client client);
+        bool Register(Client client);
+        List<CarInventory> GetAllCars();
+        float CheckClientBalance(Client client);
+        bool UpdateClientBalance(Client client, float newBalance);
+        List<Color> GetAllColors();
     }
 }
