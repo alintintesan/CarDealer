@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace CarDealer.Models
 {
-    [Serializable] class Model
+    [Serializable]
+    class Model
     {
         private int id;
         private Brand carBrand;
@@ -15,7 +16,7 @@ namespace CarDealer.Models
 
         public int Id { get => id; set => id = value; }
         public Brand CarBrand { get => carBrand; set => carBrand = value; }
-        public string CarModel { get => carModel; set => carModel = value; }
+        public string CarModel { get => carModel.Trim(); set => carModel = value; }
         public float BasePrice { get => basePrice; set => basePrice = value; }
 
         public Model(int id, Brand brand, string model, float basePrice)

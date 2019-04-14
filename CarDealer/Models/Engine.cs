@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 
 namespace CarDealer.Models
 {
-    [Serializable] class Engine
+    [Serializable]
+    class Engine
     {
         private int id;
         private string fuelType;

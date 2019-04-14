@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace CarDealer.Models
 {
+    [Serializable]
     class Brand
     {
         private int id;

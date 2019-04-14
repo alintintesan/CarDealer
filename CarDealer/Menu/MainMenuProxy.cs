@@ -18,6 +18,7 @@ namespace CarDealer.Menu
         private static string DEFAULT_CREDIT_CARD_NO = "12345678";
         private static float DEFAULT_BALANCE = 500000;
         private static float DISCOUNT = 200;
+        private static int TEST_DRIVE_DISTANCE = 1;
 
         public Client LoggedClient { get => loggedClient; set => loggedClient = value; }
 
@@ -40,6 +41,8 @@ namespace CarDealer.Menu
 
         public void Initialize()
         {
+            MessageHelper.Print(MessageHelper.MSG_WELCOME);
+
             List<string> optionsList = new List<string>() { "Sign in", "Register", "Exit" };
             var options = AddOptions(optionsList);
 
@@ -181,17 +184,22 @@ namespace CarDealer.Menu
                 List<CarInventory> cars = mainMenu.GetAllCars();
 
                 List<string> optionsList = cars.Select(car => car.ToString()).ToList();
+                optionsList.Add("Back");
 
                 var options = AddOptions(optionsList);
                 MessageHelper.PrintOptions(options);
                 MessageHelper.Print(MessageHelper.MSG_INSERT_OPTION);
-                
+
                 string selectedOption = MessageHelper.Read();
                 bool success = int.TryParse(selectedOption, out int optionIndex);
                 if (success && optionIndex >= 1 && optionIndex <= cars.Count)
                 {
                     CarInventory selectedCar = cars[optionIndex - 1];
                     ShowCarDetails(selectedCar);
+                }
+                else if (optionIndex == optionsList.Count)
+                {
+                    return;
                 }
                 else
                 {
@@ -205,23 +213,23 @@ namespace CarDealer.Menu
             MessageHelper.Print(MessageHelper.MSG_CAR_DETAILS);
             MessageHelper.Print(car.GetAllDetails());
 
-            List<string> optionsList = new List<string>() { "Buy this car", "Negociate price", "Change color and buy", "Back to main menu"};
+            List<string> optionsList = new List<string>() { "Buy this car", "Negociate price", "Change color and buy", "Test drive", "Back" };
             var options = AddOptions(optionsList);
             MessageHelper.PrintOptions(options);
             MessageHelper.Print(MessageHelper.MSG_INSERT_OPTION);
 
             string selectedOption = MessageHelper.Read();
             bool success = int.TryParse(selectedOption, out int optionIndex);
-            if(success)
+            if (success)
             {
                 switch (optionIndex)
                 {
                     case 1:
                         float balance = mainMenu.CheckClientBalance(loggedClient);
-                        if(balance >= car.FinalPrice)
+                        if (balance >= car.FinalPrice && balance != 0)
                         {
                             bool transactionSucces = mainMenu.UpdateClientBalance(loggedClient, balance - car.FinalPrice);
-                            if(transactionSucces)
+                            if (transactionSucces)
                             {
                                 // delete car from inventory
                                 // write to reports
@@ -285,28 +293,29 @@ namespace CarDealer.Menu
                         selectedOption = MessageHelper.Read();
                         success = int.TryParse(selectedOption, out optionIndex);
 
-                        if(success && optionIndex >= 0 && optionIndex <= colors.Count)
+                        if (success && optionIndex >= 0 && optionIndex <= colors.Count)
                         {
-                            // clone car
-                            //float balance = mainMenu.CheckClientBalance(loggedClient);
-                            //if (balance >= car.FinalPrice)
-                            //{
-                            //    bool transactionSucces = mainMenu.UpdateClientBalance(loggedClient, balance - car.FinalPrice);
-                            //    if (transactionSucces)
-                            //    {
-                            //        // delete car from inventory
-                            //        // write to reports
-                            //        MessageHelper.Print(MessageHelper.MSG_CAR_TRANSACTION_SUCCESS, car.ToString());
-                            //    }
-                            //    else
-                            //    {
-                            //        MessageHelper.Print(MessageHelper.MSG_CAR_TRANSACTION_FAIL);
-                            //    }
-                            //}
-                            //else
-                            //{
-                            //    MessageHelper.Print(MessageHelper.MSG_NOT_ENOUGH_MONEY);
-                            //}
+                            CarInventory clone = car.Clone();
+                            clone.Color = colors[optionIndex - 1];
+
+                            balance = mainMenu.CheckClientBalance(loggedClient);
+                            if (balance >= clone.FinalPrice)
+                            {
+                                bool transactionSucces = mainMenu.UpdateClientBalance(loggedClient, balance - clone.FinalPrice);
+                                if (transactionSucces)
+                                {
+                                    // TODO: delete car from inventory
+                                    MessageHelper.Print(MessageHelper.MSG_CAR_TRANSACTION_SUCCESS_CLONE, clone.ToString(), clone.Color.ColorName);
+                                }
+                                else
+                                {
+                                    MessageHelper.Print(MessageHelper.MSG_CAR_TRANSACTION_FAIL);
+                                }
+                            }
+                            else
+                            {
+                                MessageHelper.Print(MessageHelper.MSG_NOT_ENOUGH_MONEY);
+                            }
                             return;
                         }
                         else
@@ -316,6 +325,12 @@ namespace CarDealer.Menu
                         break;
 
                     case 4:
+                        MessageHelper.Print(MessageHelper.MSG_TEST_DRIVING, TEST_DRIVE_DISTANCE);
+                        mainMenu.TestDrive(car, TEST_DRIVE_DISTANCE);
+                        MessageHelper.Print(MessageHelper.MSG_TEST_DRIVE_CONCLUSION, car.Model.CarBrand.CarBrand);
+                        break;
+
+                    case 5:
                         OptionsMenu();
                         break;
                 }
@@ -324,7 +339,91 @@ namespace CarDealer.Menu
 
         private void RentCar()
         {
+            while (true)
+            {
+                MessageHelper.Print(MessageHelper.MSG_CAR_LIST_RENTALS);
+                List<CarInventory> cars = mainMenu.GetCarsForRent();
 
+                List<string> optionsList = cars.Select(car => car.ToString()).ToList();
+                optionsList.Add("Back");
+
+                var options = AddOptions(optionsList);
+                MessageHelper.PrintOptions(options);
+                MessageHelper.Print(MessageHelper.MSG_INSERT_OPTION);
+
+                string selectedOption = MessageHelper.Read();
+                bool success = int.TryParse(selectedOption, out int optionIndex);
+                if (success && optionIndex >= 1 && optionIndex <= cars.Count)
+                {
+                    CarInventory selectedCar = cars[optionIndex - 1];
+                    ShowCarRentalDetails(selectedCar);
+                }
+                else if (optionIndex == optionsList.Count)
+                {
+                    return;
+                }
+                else
+                {
+                    MessageHelper.Print(MessageHelper.MSG_INVALID_OPTION);
+                }
+            }
+        }
+
+        private void ShowCarRentalDetails(CarInventory car)
+        {
+            MessageHelper.Print(MessageHelper.MSG_CAR_DETAILS);
+            MessageHelper.Print(car.GetAllDetails());
+
+            List<string> optionsList = new List<string>() { "Rent this car", "Back" };
+            var options = AddOptions(optionsList);
+            MessageHelper.PrintOptions(options);
+            MessageHelper.Print(MessageHelper.MSG_INSERT_OPTION);
+
+            string selectedOption = MessageHelper.Read();
+            bool success = int.TryParse(selectedOption, out int optionIndex);
+            if (success)
+            {
+                switch (optionIndex)
+                {
+                    case 1:
+                        string noOfDaysAsText = MessageHelper.GetUserInput(MessageHelper.MSG_RENTAL_NO_OF_DAYS);
+                        bool isUserInputCorrect = int.TryParse(noOfDaysAsText, out int noOfDays);
+
+                        if(isUserInputCorrect)
+                        {
+                            float balance = mainMenu.CheckClientBalance(loggedClient);
+                            float costPerDay = car.RentCostPerDay();
+                            float totalCost = costPerDay * noOfDays;
+
+                            if (balance >= totalCost && balance != 0)
+                            {
+                                bool transactionSucces = mainMenu.UpdateClientBalance(loggedClient, totalCost);
+                                if (transactionSucces)
+                                {
+                                    MessageHelper.Print(MessageHelper.MSG_CAR_TRANSACTION_SUCCESS_RENT, totalCost, noOfDays, car.ToString());
+                                }
+                                else
+                                {
+                                    MessageHelper.Print(MessageHelper.MSG_CAR_TRANSACTION_FAIL);
+                                }
+                            }
+                            else
+                            {
+                                MessageHelper.Print(MessageHelper.MSG_NOT_ENOUGH_MONEY);
+                            }
+                            return;
+                        }
+                        else
+                        {
+                            MessageHelper.Print(MessageHelper.MSG_INVALID_DAYS);
+                        }
+                        break;
+                        
+                    case 5:
+                        OptionsMenu();
+                        break;
+                }
+            }
         }
 
         private void CarService()
@@ -334,7 +433,7 @@ namespace CarDealer.Menu
 
         private void BuildCustomCar()
         {
-
+            // TO DO AND DOOONE
         }
 
         private void SellOwnCar()

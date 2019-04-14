@@ -9,8 +9,11 @@ using System.Threading.Tasks;
 
 namespace CarDealer.Models
 {
-    [Serializable] class CarInventory : IDecoratedCar, ICarPrototype
+    [Serializable]
+    class CarInventory : IDecoratedCar, ICarPrototype
     {
+        private static readonly float RENT_PER_DAY_PERCENTAGE = 1;
+
         public int Id { get; set; }
         public Model Model { get; set; }
         public Color Color { get; set; }
@@ -76,6 +79,11 @@ namespace CarDealer.Models
         public CarInventory Clone()
         {
             return (CarInventory)ObjectHelper.DeepCopy<CarInventory>(this);
+        }
+
+        public float RentCostPerDay()
+        {
+            return (float) InitialPrice / 100 * RENT_PER_DAY_PERCENTAGE;
         }
     } 
 }

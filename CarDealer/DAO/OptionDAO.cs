@@ -213,9 +213,8 @@ namespace CarDealer.DAO
 
             using (SqlConnection connection = DatabaseHelper.Instance.GetConnection())
             {
-                string sql = "select id, [option], price from Options where level = '@level'";
+                string sql = "select id, [option], price from Options where level = '" + level.ToString() + "'";
                 SqlCommand command = new SqlCommand(sql, connection);
-                command.Parameters.AddWithValue("@level", level.ToString());
                 connection.Open();
 
                 SqlDataReader reader = command.ExecuteReader();
@@ -241,9 +240,8 @@ namespace CarDealer.DAO
             float price = 0;
             using (SqlConnection connection = DatabaseHelper.Instance.GetConnection())
             {
-                string sql = "select price from Options where level = '@level'";
+                string sql = "select price from Options where level = '" + level.ToString() + "'";
                 SqlCommand command = new SqlCommand(sql, connection);
-                command.Parameters.AddWithValue("@level", level.ToString());
                 connection.Open();
 
                 SqlDataReader reader = command.ExecuteReader();

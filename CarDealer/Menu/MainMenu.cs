@@ -51,5 +51,15 @@ namespace CarDealer.Menu
         {
             return colorDAO.GetAllColors();
         }
+
+        public void TestDrive(CarInventory car, int distance)
+        {
+            carInventoryDAO.TestDrive(car.Id, distance);
+        }
+
+        public List<CarInventory> GetCarsForRent()
+        {
+            return carInventoryDAO.GetCarsForRent();
+        }
     }
 }

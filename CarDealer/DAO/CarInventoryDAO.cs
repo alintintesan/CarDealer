@@ -79,5 +79,26 @@ namespace CarDealer.DAO
             }
             return cars;
         }
+
+        public List<CarInventory> GetCarsForRent()
+        {
+            List<CarInventory> allCars = GetAllCars();
+            List<CarInventory> carsForRent = allCars.Where(car => car.Mileage > 0).ToList();
+            return carsForRent;
+        }
+
+        public void TestDrive(int id, int distance)
+        {
+            using (SqlConnection connection = DatabaseHelper.Instance.GetConnection())
+            {
+                connection.Open();
+                string sql = "update CarsInventory set mileage = mileage + @distance where id = @id";
+                SqlCommand command = new SqlCommand(sql, connection);
+                command.Parameters.AddWithValue("@distance", distance);
+                command.Parameters.AddWithValue("@id", id);
+
+                command.ExecuteNonQuery();
+            }
+        }
     }
 }

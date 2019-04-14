@@ -10,5 +10,7 @@ namespace CarDealer.Interfaces
     interface ICarInventoryDAO
     {
         List<CarInventory> GetAllCars();
+        void TestDrive(int id, int distance);
+        List<CarInventory> GetCarsForRent();
     }
 }

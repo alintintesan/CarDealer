@@ -15,6 +15,7 @@ namespace CarDealer.Utils
     class MessageHelper
     {
         public static readonly string MSG_HELLO = "Hello!";
+        public static readonly string MSG_WELCOME = $"Welcome to our car dealer! In order to continue, please log in or register for a new account!{Environment.NewLine}";
         public static readonly string MSG_HELLO_NAME = Environment.NewLine + "Hello {0}! What would you like to do?";
         public static readonly string MSG_HELLO_NEW_USER = "Welcome {0}! What would you like to do?";
         public static readonly string MSG_BYE = "Have a nice day!";
@@ -35,13 +36,21 @@ namespace CarDealer.Utils
         public static readonly string MSG_INVALID_OPTION = "Invalid option! Please try again!";
 
         public static readonly string MSG_CAR_LIST = $"{Environment.NewLine}Here are all the cars listed for selling, choose one for more details!";
+        public static readonly string MSG_CAR_LIST_RENTALS = $"{Environment.NewLine}Here are all the cars available for rent, choose one for more details!";
         public static readonly string MSG_COLOR_LIST = $"{Environment.NewLine}Here are all the available colors, choose the one you like the best!";
         public static readonly string MSG_CAR_DETAILS = "Here are more details about this car:";
         public static readonly string MSG_CAR_TRANSACTION_SUCCESS = "Purchase and payment of your {0} completed successfully! Enjoy your new car!";
+        public static readonly string MSG_CAR_TRANSACTION_SUCCESS_CLONE = "Purchase and payment of your {0} completed successfully! Enjoy your new car, painted in {1} just for you!";
+        public static readonly string MSG_CAR_TRANSACTION_SUCCESS_RENT = "Payment of {0} completed successfully!" + Environment.NewLine +
+            "The rent period is {1} days for this {2}!" + Environment.NewLine + "Enjoy the car and bring it back in one piece!";
         public static readonly string MSG_CAR_TRANSACTION_FAIL = "Transaction failed, please try again later.";
         public static readonly string MSG_NOT_ENOUGH_MONEY = "You don't have enough money on your credit card!";
         public static readonly string MSG_NEGOCIATE = "The best I can do is {0} for this car. Do we have a deal?";
         public static readonly string MSG_REFUSE_DISCOUNT = "All right, maybe you can find another car that suits your needs better!";
+        public static readonly string MSG_TEST_DRIVING = "You can test the car for {0} km on our track!";
+        public static readonly string MSG_TEST_DRIVE_CONCLUSION = "So, what do you think of the {0}?";
+        public static readonly string MSG_RENTAL_NO_OF_DAYS = "Please enter the number of days you want to rent this car:";
+        public static readonly string MSG_INVALID_DAYS = "Invalid number of days, please try again!";
 
         /// <summary>
         /// Prints a string to the console

@@ -15,5 +15,7 @@ namespace CarDealer.Interfaces
         float CheckClientBalance(Client client);
         bool UpdateClientBalance(Client client, float newBalance);
         List<Color> GetAllColors();
+        void TestDrive(CarInventory car, int distance);
+        List<CarInventory> GetCarsForRent();
     }
 }

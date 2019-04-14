@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace CarDealer.Models
 {
-    [Serializable] class Color
+    [Serializable]
+    class Color
     {
         private int id;
         private string colorName;
